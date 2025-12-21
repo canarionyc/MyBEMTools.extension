@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 from Autodesk.Revit.DB import *
+# noinspection PyUnresolvedReferences
+from Autodesk.Revit.DB import SpecTypeId
+from Autodesk.Revit.DB.Architecture import * # This fixes 'Room'
 
 # Setup a standard BEM logger for the whole project
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
@@ -18,3 +21,14 @@ def get_u_value(wall_type):
 def get_readable_units(doc):
     unit_id = doc.GetUnits().GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()
     return LabelUtils.GetLabelForUnit(unit_id)
+
+def get_forge_units(doc):
+    """Returns human-readable length units (e.g., 'Meters')"""
+    units = doc.GetUnits()
+    spec_id = SpecTypeId.Length
+    unit_id = units.GetFormatOptions(spec_id).GetUnitTypeId()
+    return LabelUtils.GetLabelForUnit(unit_id)
+
+def get_wall_count(doc):
+    """Basic collector to verify API access"""
+    return FilteredElementCollector(doc).OfClass(Wall).WhereElementIsNotElementType().GetElementCount()
