@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e67e832-585f-4b16-90e0-cd75879d469f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson01.panel/Diagnostics.pulldown/01_Environment.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson01.panel/Diagnostics.pulldown/02_ModelHealth.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Level03_Envelope.panel/Lessons.pulldown/03_MaterialFix.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/Level03_Envelope.panel/Lessons.pulldown/01_ThermalAudit.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Level03_Envelope.panel/Lessons.pulldown/01_ThermalAudit.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bem_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bem_utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="0e67e832-585f-4b16-90e0-cd75879d469f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +20,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "canarionyc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/canarionyc/MyBEMTools.extension.git",
+    "accountId": "53b56933-0fe4-4484-9057-60637346cc75"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -73,7 +78,7 @@
       <updated>1766335324871</updated>
       <workItem from="1766335325920" duration="1391000" />
       <workItem from="1766336746852" duration="284000" />
-      <workItem from="1766337059347" duration="3679000" />
+      <workItem from="1766337059347" duration="4365000" />
     </task>
     <servers />
   </component>
