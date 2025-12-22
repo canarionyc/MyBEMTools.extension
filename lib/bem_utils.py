@@ -1,12 +1,31 @@
 # -*- coding: utf-8 -*-
+import sys
 import logging
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import SpecTypeId
 from Autodesk.Revit.DB.Architecture import * # This fixes 'Room'
 
+# --- BEM Unit Conversions ---
+# Revit Internal (ft) -> Meters (m)
+FT_TO_M = 0.3048
+# Revit Internal (sqft) -> Square Meters (m2)
+SQFT_TO_M2 = 0.09290304
+# Revit Internal (cuft) -> Cubic Meters (m3)
+CUFT_TO_M3 = 0.0283168
+
+# --- BEM Thermal Constants (SI Units: m²K/W) ---
+# Interior surface resistance (Heat flow horizontal)
+R_SI = 0.13
+# Exterior surface resistance (Heat flow horizontal)
+R_SE = 0.04
+
+
 # Setup a standard BEM logger for the whole project
-logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(levelname)s: %(message)s',
+                    stream=sys.stdout  # <--- THIS IS THE KEY FOR PYREVIT
+)
 logger = logging.getLogger('BEM_Project')
 
 def get_u_value(wall_type):

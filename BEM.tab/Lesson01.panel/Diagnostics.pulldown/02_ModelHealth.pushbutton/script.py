@@ -2,6 +2,11 @@
 from bem_utils import logger, get_wall_count
 from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.DB import Document
+# 1. This grabs SpatialElement, Wall, FilteredElementCollector, etc.
+from Autodesk.Revit.DB import *
+# 2. This grabs ONLY Room from the Architecture namespace
+# noinspection PyUnresolvedReferences
+from Autodesk.Revit.DB.Architecture import Room
 
 if False:
     __revit__ = UIApplication()
@@ -28,6 +33,8 @@ def run_lesson_1_2():
     else:
         logger.debug("Thermal Zone check passed.")
 
+print(__name__)
+run_lesson_1_2()
 
 if __name__ == "__main__":
     run_lesson_1_2()
