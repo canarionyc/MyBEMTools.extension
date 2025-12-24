@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e67e832-585f-4b16-90e0-cd75879d469f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/file.template.settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/fileTemplates/Revit Script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson02.panel/01_WallArea.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson02.panel/02_Tagging.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson02.panel/03_RoomVolume.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Lesson02.panel/04_MaterialAudit.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/05_ModelTree.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/06_AlignLevels.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/06_BEMAutomator.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/07_RoofAutomator.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/ExportCSV.pushbutton/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fileTemplates/Revit Script.py" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fileTemplates/Revit Script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/Lesson01.panel/Diagnostics.pulldown/02_ModelHealth.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Lesson01.panel/Diagnostics.pulldown/02_ModelHealth.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/Level03_Envelope.panel/Lessons.pulldown/01_ThermalAudit.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Lesson03.panel/Lessons.pulldown/01_ThermalAudit.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/Level03_Envelope.panel/Lessons.pulldown/03_MaterialFix.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Lesson03.panel/Lessons.pulldown/03_MaterialFix.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bem_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bem_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BEM.tab/Tools.panel/05_ModelTree.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/05_ModelTree.pushbutton/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BEM.tab/Tools.panel/LiveTest.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/LiveTest.pushbutton/script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +53,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;PowerShell.run_pyrevit.Ps1.executor&quot;: &quot;Run&quot;,
+    &quot;PowerShell.setup_pyrevit.Ps1.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -102,6 +93,8 @@
       <workItem from="1766387704388" duration="4990000" />
       <workItem from="1766404629724" duration="1898000" />
       <workItem from="1766408477877" duration="8612000" />
+      <workItem from="1766570340479" duration="12483000" />
+      <workItem from="1766596749697" duration="3641000" />
     </task>
     <servers />
   </component>

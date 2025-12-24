@@ -1,18 +1,13 @@
-# -*- coding: utf-8 -*-
-from pyrevit import forms
-from Autodesk.Revit.DB import *
+import sys, io
+# Create a memory buffer to catch all prints
+revit_buffer = io.StringIO()
+sys.stdout = revit_buffer
 
-# This is the pyRevit shortcut to get the document
-doc = __revit__.ActiveUIDocument.Document
+# YOUR UNTOUCHED LEGACY CODE BELOW:
+print("!!! SCRIPT IS LOADING !!!")
+print("System path: {}".format(sys.path))
+print("Hello! Everything is working now.")
 
-# 1. Grab Project Info
-project_name = doc.ProjectInformation.Name
-version = __revit__.Application.VersionName
-
-# 2. Pop up a message box in Revit
-message = "BRIDGE ACTIVE!\n\nProject: {}\nRevit Version: {}".format(project_name, version)
-forms.alert(message, title="BEM Live Route")
-
-# 3. Add a simple BEM check
-units = doc.GetUnits().GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()
-print("Current Project Units: {}".format(units))
+from pyrevit import output
+# Once the script is done, send the whole buffer to the UI at once
+output.get_output().print_md(revit_buffer.getvalue().replace('\x00', ''))

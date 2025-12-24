@@ -1,18 +1,80 @@
-# -*- coding: utf-8 -*-
-# noinspection PyUnresolvedReferences
-from bem_utils import logger
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB import *
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB.Architecture import *  # Adds Room and SpatialElement support
+import sys
+import os
+from pyrevit import revit, DB, HOST_APP
 
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.UI import UIApplication
+# Check engine version programmatically
+import sys
+if sys.version_info.major < 3:
+    raise RuntimeError("BEM Audit Tool requires IronPython 3+. Current: " + sys.version)
 
-# noinspection PyUnresolvedReferences
-doc = __revit__.ActiveUIDocument.Document
+# This will cause a SyntaxError on IronPython 2.7, failing the script immediately
+print(f"Running on Engine: {HOST_APP.engine_type}")
+print(f"Arguments: {sys.argv}")
+
+# Replace line 6 with:
+print("Host Version: {}".format(HOST_APP.version))
+print("Running in UI mode: {}".format(HOST_APP.is_ui))
+print("Python Version: {}".format(sys.version))
+print("Arguments received: {}".format(sys.argv))
 
 
+def find_model_path():
+    """Tries multiple sources to find the model path in headless mode."""
+    # 1. Try sys.argv (standard for CLI tools)
+    rvt_args = [arg for arg in sys.argv if arg.lower().endswith('.rvt')]
+    if rvt_args:
+        return rvt_args[0]
+
+    # 2. Try JournalData (source of truth in the runner journal)
+    try:
+        j_data = HOST_APP.app.JournalData
+        if j_data and j_data.ContainsKey("Models"):
+            return j_data["Models"].split(';')[0]
+    except:
+        pass
+
+    # 3. Fallback to pyRevit global
+    models = globals().get('__models__', [])
+    if models:
+        return models[0]
+
+    return None
+
+
+# --- Main Document Logic ---
+doc = None
+path = find_model_path()
+
+if path:
+    print("Headless Mode: Opening model at {}".format(path))
+    if os.path.exists(path):
+        try:
+            # Must use Application.OpenDocumentFile in UI-less mode
+            doc = HOST_APP.app.OpenDocumentFile(path)
+        except Exception as e:
+            print("CRITICAL: Failed to open model via API. Error: {}".format(e))
+    else:
+        print("ERROR: File not found at path: {}".format(path))
+else:
+    # UI Mode Fallback (for testing within Revit UI)
+    try:
+        doc = revit.doc
+    except:
+        pass
+
+if not doc:
+    print("ERROR: No valid Revit Document found.")
+    sys.exit(1)
+
+print("SUCCESS: Attached to document '{}'".format(doc.Title))
+
+
+# ... Rest of your BEM audit code ...
+
+# ... Rest of your script follows ...
+
+# ... proceed with your BEM audit logic ...
+# Now 'doc' is a valid Autodesk.Revit.DB.Document object for both modes.
 # 05_ModelTree/script.py
 # Project: EJEMPLO1-2526_20251222
 # BEM Audit Script - IronPython 2.7 Compatible Version
