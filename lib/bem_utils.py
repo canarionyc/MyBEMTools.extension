@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import sys
 import logging
+# noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import SpecTypeId
+# noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB.Architecture import * # This fixes 'Room'
 
 # --- BEM Unit Conversions ---
