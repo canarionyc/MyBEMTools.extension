@@ -1,50 +1,70 @@
 # -*- coding: utf-8 -*-
-# noinspection PyUnresolvedReferences
-from bem_utils import logger
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB import *
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB.Architecture import *  # Adds Room and SpatialElement support
+import sys
 
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.UI import UIApplication
+# --- 1. THE NUCLEAR SILENCE OPTION ---
+# We replace stdout with a Null object that does NOTHING.
+# This prevents ANY library from triggering the codepage___0 crash.
+class NullStream(object):
+    def write(self, *args, **kwargs): pass
+    def flush(self, *args, **kwargs): pass
+    @property
+    def encoding(self): return "utf-8"
 
-# noinspection PyUnresolvedReferences
-doc = __revit__.ActiveUIDocument.Document
-# noinspection PyUnresolvedReferences
-from bem_utils import logger, CUFT_TO_M3
-from Autodesk.Revit.DB import *
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB import VolumeComputationSetting
+sys.stdout = NullStream()
+sys.stderr = NullStream()
 
-# noinspection PyUnresolvedReferences
-from Autodesk.Revit.DB.Architecture import Room
+# --- 2. SAFE IMPORTS ---
+import clr
+try:
+    clr.AddReference("RevitAPI")
+    clr.AddReference("RevitAPIUI")
+except:
+    pass
 
+import Autodesk.Revit.DB as DB
+import Autodesk.Revit.DB.Architecture as Arch
+from pyrevit import output
+from bem_utils import logger, CUFT_TO_M3 # logger must be imported AFTER stdout is silenced
 
 def run_script():
-    # 1. Access the setting via doc.Settings
+    # Get the pyRevit output window directly (bypasses sys.stdout)
+    out = output.get_output()
+    
+    # Access document safely
+    try:
+        uidoc = __revit__.ActiveUIDocument
+        doc = uidoc.Document
+    except Exception:
+        # We use the output window directly since print/logger might still hit stdout
+        out.print_md("### Error: No active Revit document found.")
+        return
+
+    # Reference types via the DB alias to avoid assembly version conflicts
+    v_setting_type = DB.VolumeComputationSetting
     current_setting = doc.Settings.VolumeComputationSetting
 
-    if current_setting == VolumeComputationSetting.NotCalculated:
-        logger.warning("Volume calculations were OFF. Enabling them now for BEM...")
-
-        # 2. You must use a Transaction to change this setting!
-        t = Transaction(doc, "Enable Volume Calc")
-        t.Start()
-        doc.Settings.VolumeComputationSetting = VolumeComputationSetting.Calculated
-        t.Commit()
-
-        logger.info("Volume calculations are now ENABLED.")
-    else:
-        logger.info("Volume calculations are already active.")
-
-    rooms = FilteredElementCollector(doc).OfClass(SpatialElement).ToElements()
-
+    if current_setting == v_setting_type.NotCalculated:
+        out.print_md("--- Volume calculations were **OFF**. Enabling them... ---")
+        with DB.Transaction(doc, "Enable Volume Calc") as t:
+            t.Start()
+            doc.Settings.VolumeComputationSetting = v_setting_type.Calculated
+            t.Commit()
+        out.print_md("--- Volume calculations are now **ENABLED**. ---")
+    
+    rooms = DB.FilteredElementCollector(doc).OfClass(DB.SpatialElement).ToElements()
+    
+    found_rooms = 0
     for room in rooms:
-        if isinstance(room, Room) and room.Area > 0:
-            # Internal (cubic feet) -> m³
+        if isinstance(room, Arch.Room) and room.Area > 0:
             vol_m3 = room.Volume * CUFT_TO_M3
-            logger.info("Zone: {} | Volume: {:.2f} m³".format(room.Name, vol_m3))
+            # Use the output window's specific print method
+            out.print_md("**Zone:** {} | **Volume:** {:.2f} m³".format(room.Name, vol_m3))
+            found_rooms += 1
+            
+    if found_rooms == 0:
+        out.print_md("_No valid rooms with area found in this model._")
+    else:
+        out.print_md("--- Processed **{}** rooms successfully. ---".format(found_rooms))
 
-
-run_script()
+if __name__ == "__main__":
+    run_script()
