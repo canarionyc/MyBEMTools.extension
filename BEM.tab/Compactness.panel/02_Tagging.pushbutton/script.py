@@ -53,10 +53,10 @@ def run_script():
             if "basement" in level_name or "-1" in level_name:
                 # We use the 'Comments' parameter as our BEM storage for now
                 comment_param = wall.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS)
-
-                if comment_param:
-                    comment_param.Set("BEM_GROUND_COUPLED")
-                    tagged_count += 1
+                print(comment_param)
+                # if comment_param:
+                #     comment_param.Set("BEM_GROUND_COUPLED")
+                #     tagged_count += 1
 
         t.Commit()
         logger.info("SUCCESS: Tagged {} walls for ground-coupling analysis.".format(tagged_count))

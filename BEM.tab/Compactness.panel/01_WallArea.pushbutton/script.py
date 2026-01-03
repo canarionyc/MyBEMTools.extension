@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_utils import logger
+from bem_env import logger
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences

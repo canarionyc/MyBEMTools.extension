@@ -1,13 +1,12 @@
 #! python3
 import sqlite3
 from pyrevit import revit, DB, script
-
+from bem_env import DB_PATH
 doc = revit.doc
 output = script.get_output()
 
 # --- CONFIGURATION ---
 # Update this path to where you saved the uploaded hulc_data.sqlite
-DB_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\hulc_data.sqlite"
 CONSTRUCTION_NAME = "SOL CAM SANIT"
 TARGET_ID_INT = 1659623
 FT_TO_MM = 304.8

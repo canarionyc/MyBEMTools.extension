@@ -45,7 +45,7 @@ def audit_basement_walls():
         else:
             logger.debug("Wall {} is exposed to Air.".format(wall.Id))
 
-
+print("Auditing Basement Walls...")
 if __name__ == "__main__":
     audit_basement_walls()
 

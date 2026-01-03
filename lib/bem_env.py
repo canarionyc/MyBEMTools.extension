@@ -22,6 +22,8 @@ R_SI = 0.13
 # Exterior surface resistance (Heat flow horizontal)
 R_SE = 0.04
 
+DB_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\hulc_data.sqlite"
+
 
 # Setup a standard BEM logger for the whole project
 logging.basicConfig(level=logging.DEBUG,

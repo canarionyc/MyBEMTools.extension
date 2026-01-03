@@ -28,23 +28,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.get_wallcons_long.executor": "Debug",
-    "Python.script.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/Dev.panel",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.get_wallcons_long.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.script.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/MyBEMTools.extension/BEM.tab/Dev.panel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Dev.panel" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Thermal.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Descriptive.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab" />
+      <recent name="C:\dev\MyBEMTools.extension\Families.panel" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Lessons.pulldown" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -66,6 +73,7 @@
       <workItem from="1767336558694" duration="612000" />
       <workItem from="1767368931337" duration="2349000" />
       <workItem from="1767419761751" duration="983000" />
+      <workItem from="1767448963484" duration="2928000" />
     </task>
     <servers />
   </component>

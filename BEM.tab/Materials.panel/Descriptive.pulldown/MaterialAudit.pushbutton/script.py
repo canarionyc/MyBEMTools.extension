@@ -12,7 +12,7 @@ from Autodesk.Revit.UI import UIApplication
 # noinspection PyUnresolvedReferences
 doc = __revit__.ActiveUIDocument.Document
 # noinspection PyUnresolvedReferences
-from bem_utils import logger, FT_TO_M
+from bem_env import logger, FT_TO_M
 from Autodesk.Revit.DB import *
 
 

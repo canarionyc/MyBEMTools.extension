@@ -1,2 +1,3 @@
-title: My BEM Tools
-type: ui
+title: "BEM\nEngine"  # Appears as two lines in Revit
+tooltip: "Processes wall thermal assets using CPython 3.12 and HULC data."
+author: "Your Name"

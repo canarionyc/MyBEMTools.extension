@@ -24,7 +24,7 @@ except:
 import Autodesk.Revit.DB as DB
 import Autodesk.Revit.DB.Architecture as Arch
 from pyrevit import output
-from bem_utils import logger, CUFT_TO_M3 # logger must be imported AFTER stdout is silenced
+from bem_env import logger, CUFT_TO_M3 # logger must be imported AFTER stdout is silenced
 
 def run_script():
     # Get the pyRevit output window directly (bypasses sys.stdout)

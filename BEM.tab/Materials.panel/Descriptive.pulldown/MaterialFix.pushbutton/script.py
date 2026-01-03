@@ -7,13 +7,14 @@ from Autodesk.Revit.DB import Document
 # We use 'if False' so this code never runs in Revit, but PyCharm's
 # analyzer sees the types and stops complaining about 'None' or 'Undefined'.
 # noinspection PyUnreachableCode
-if False:
-    __revit__ = UIApplication()
-    doc = Document()
+# if False:
+#     __revit__ = UIApplication()
+#     doc = Document()
 
-from bem_utils import logger, get_readable_units  # Using your new shared library!
+from bem_env import logger, get_readable_units  # Using your new shared library!
 from Autodesk.Revit.DB import *
 
+# noinspection PyUnboundLocalVariable
 doc = __revit__.ActiveUIDocument.Document
 
 logger.info("--- BEM LESSON 3.1 START ---")
@@ -21,7 +22,6 @@ logger.debug("Active Project: {}".format(doc.Title))
 
 units = get_readable_units(doc)
 logger.info("Current Units: {}".format(units))
-
 
 def ensure_concrete_thermal_data():
     # 1. Start a Transaction (Required for any Revit change)
@@ -85,6 +85,7 @@ def run_fixer():
     fix_count = 0
     try:
         for mat in materials:
+            print(mat)
             # Check if it's missing the Thermal tab
             if mat.ThermalAssetId == ElementId.InvalidElementId:
                 # Logic: Only fix materials actually used in Walls/Floors (optional filter)
@@ -92,7 +93,7 @@ def run_fixer():
                 name = mat.Name.lower()
                 if any(x in name for x in ["concrete", "brick", "stone", "masonry", "insulation"]):
                     # INJECT: Assign the template asset to this material
-                    mat.ThermalAssetId = template_asset_id
+                    # mat.ThermalAssetId = template_asset_id
                     logger.info("Fixed: Added Thermal Asset to {}".format(mat.Name))
                     fix_count += 1
 
