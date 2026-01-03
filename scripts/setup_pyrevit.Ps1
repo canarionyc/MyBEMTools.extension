@@ -28,9 +28,21 @@ pyrevit doctor purge-installs
 # pyrevit configs routes port 8080
 
 # Verifications
+pyrevit -h
 pyrevit env 
-pyrevit attached
+
 pyrevit clones 
+pyrevit attached
+pyrevit extensions
+pyrevit releases
+pyrevit revits
+pyrevit caches
+pyrevit.exe configs -h 
+pyrevit.exe configs routes -h
+pyrevit.exe configs routes coreapi enable
+
+
+pyrevit-autocomplete.exe
 pyrevit  doctor 
 
 # Step 1 Remove the old clone registration
@@ -66,6 +78,8 @@ pyrevit extend ui MyBEMTools "C:\dev\MyBEMTools.extension"
 
 pyrevit configs -h
 pyrevit configs developer true
+# Replace with your actual path to python.exe
+pyrevit configs cpython "C:\Python312\python.exe"
 
 pyrevit run "C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\05_ModelTree.pushbutton\script.py" "C:\RevitAudit\model.rvt" --revit="C:\Program Files\Autodesk\Revit 2026\Revit.exe" --import="C:\dev\MyBEMTools.extension\lib"
 
@@ -77,7 +91,13 @@ pyrevit configs routes enable
 # Ensure it uses your preferred port
 pyrevit configs routes port 48884
 
-pyrevit configs
+pyrevit configs -h
+pyrevit configs cpyversion 312
+
+pyrevit config -h
+#pyrevit config cpython engine "C:\Python312\python.exe"
+pyrevit config --from="C:\Users\tglla\AppData\Roaming\pyRevit\pyRevit_config.ini" 
+# This tells pyrevit exactly which python executable to use for engine 312
 
 $myCode = "from pyrevit import routes; print(routes.get_routes())"; Invoke-RestMethod -Method Post -Uri "http://localhost:48884/BEM/exec" -Body $myCode
 

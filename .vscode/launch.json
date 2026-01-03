@@ -11,6 +11,13 @@
             "request": "launch",
             "script": "${file}",
             "args": []
+        },
+        {
+            "name": "Run any .bat file",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "echo Starting task...",
+            "preLaunchTask": "Run batch file"
         }
     ]
 }
