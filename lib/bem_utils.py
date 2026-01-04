@@ -30,6 +30,35 @@ logging.basicConfig(level=logging.DEBUG,
 )
 logger = logging.getLogger('BEM_Project')
 
+
+# --- 1. THE FULL UNIT DUMPER ---
+def dump_all_units():
+    print(">>> 📚 Generating Unit Reference File...")
+    valid_units = []
+    try:
+        for name in dir(DB.UnitTypeId):
+            if not name.startswith("__"):
+                valid_units.append(name)
+    except Exception as e:
+        print("    [ERROR] Could not scan library: {}".format(e))
+        return
+
+    try:
+        # Use io.open here too for safety
+        with io.open(UNIT_DUMP_FILE, 'w', encoding='utf-8') as f:
+            f.write(u"REVIT API UNIT DUMP\n")
+            f.write(u"===================\n")
+            f.write(u"Total Count: {}\n\n".format(len(valid_units)))
+            for u in sorted(valid_units):
+                f.write(u"DB.UnitTypeId.{}\n".format(u))
+
+        print("    [INFO] Saved {} units to:".format(len(valid_units)))
+        print("           {}".format(UNIT_DUMP_FILE))
+        output.print_md("> 📄 **Unit List Saved:** `revit_units_dump.txt`")
+    except Exception as e:
+        print("    [WARNING] File write failed: {}".format(e))
+
+
 def get_u_value(wall_type):
     """Calculates U-Value (W/m²·K). Formula: U = 1/R_total"""
     r_value = wall_type.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_FINAL_RVALUE).AsDouble()
