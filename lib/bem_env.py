@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-import os
 import unicodedata
-# noinspection PyUnresolvedReferences
 from Autodesk.Revit import DB
 
 # --- ENVIRONMENT SETUP ---
@@ -15,20 +13,16 @@ db_path = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config
 
 # --- HELPER FUNCTIONS ---
 def sanitize_revit_name(text):
-    if not text:
-        return "Unnamed_Material"
-
+    if not text: return "Unnamed_Material"
     nfkd_form = unicodedata.normalize('NFKD', str(text))
     text = "".join([c for c in nfkd_form if not unicodedata.combining(c)])
-
     translations = {
         "<": "inf", ">": "sup", "[": "(", "]": ")",
-        "{": "(", "}": ")", "|": "-", ";": ",", "?": ""
+        "{": "(", "}": ")", "|": "-", ";": ",", "?": "",
+        ":": "-", "/": "-"
     }
-
     for char, replacement in translations.items():
         text = text.replace(char, replacement)
-
     return " ".join(text.split())
 
 
@@ -40,24 +34,21 @@ def update_material_thermal_data(doc, data):
 
     print("    [BEM_ENV] Processing: '{}'".format(safe_name))
 
-    # 2. CALCULATION: Manual Unit Conversion (SI -> Imperial)
-    # This bypasses UnitUtils entirely, making the script version-proof.
-    # ----------------------------------------------------------------
-    # Conductivity: W/(m·K) -> BTU/(h·ft·°F) | Factor: ~0.5778
-    k_imp = float(data['conductivity']) * 0.577789
+    # 2. MANUAL MATH (Safe Calculation)
+    try:
+        k_imp = float(data['conductivity']) * 0.577789
+        d_imp = float(data['density']) * 0.062428
+        cp_imp = float(data['specificheat']) * 0.000238846
 
-    # Density: kg/m³ -> lb/ft³ | Factor: ~0.0624
-    d_imp = float(data['density']) * 0.062428
+        # Safety Clamps (Revit crashes on <= 0)
+        k_imp = max(0.001, k_imp)
+        d_imp = max(0.001, d_imp)
+        cp_imp = max(0.001, cp_imp)
+    except Exception as e:
+        print("    [ERROR] Math calculation failed: {}".format(e))
+        return None
 
-    # Specific Heat: J/(kg·K) -> BTU/(lb·°F) | Factor: ~0.0002388
-    cp_imp = float(data['specificheat']) * 0.000238846
-
-    # Safety Guards (Revit crashes on 0.0 or negative thermal values)
-    k_imp = max(0.001, k_imp)
-    d_imp = max(0.001, d_imp)
-    cp_imp = max(0.001, cp_imp)
-
-    # 3. Find or Create Material
+    # 3. Find Material
     material = next((m for m in DB.FilteredElementCollector(doc).OfClass(DB.Material)
                      if m.Name == safe_name), None)
 
@@ -65,43 +56,53 @@ def update_material_thermal_data(doc, data):
         mat_id = DB.Material.Create(doc, safe_name)
         material = doc.GetElement(mat_id)
 
-    # 4. Manage Thermal Asset (Optimized Flow)
+    # 4. MANAGE ASSET (The Reconstruction Strategy)
     asset_id = material.ThermalAssetId
 
     try:
+        # Create a FRESH object in memory.
+        # We do NOT rely on 'pse.GetThermalAsset()' which might be corrupt.
+        new_asset = DB.ThermalAsset(asset_name, DB.ThermalMaterialType.Solid)
+        new_asset.ThermalConductivity = k_imp
+        new_asset.Density = d_imp
+        new_asset.SpecificHeat = cp_imp
+
         if asset_id == DB.ElementId.InvalidElementId:
-            # --- CASE A: CREATE NEW ---
-            # Create the object in memory
-            thermal_asset = DB.ThermalAsset(asset_name, DB.ThermalMaterialType.Solid)
+            # --- SCENARIO A: NO ASSET LINKED ---
+            # Check for Orphans (Naming Collision Prevention)
+            collector = DB.FilteredElementCollector(doc).OfClass(DB.PropertySetElement)
+            orphan = next((e for e in collector if e.Name == asset_name), None)
 
-            # SET PROPERTIES BEFORE CREATING THE ELEMENT
-            # This prevents the "Internal Error" caused by modifying a fresh element too fast
-            thermal_asset.ThermalConductivity = k_imp
-            thermal_asset.Density = d_imp
-            thermal_asset.SpecificHeat = cp_imp
-
-            # Commit to Revit Database
-            pse_id = DB.PropertySetElement.Create(doc, thermal_asset)
-            material.ThermalAssetId = pse_id
-            print("    [BEM_ENV] Created New Asset: K={:.4f}, D={:.4f}, Cp={:.4f}".format(k_imp, d_imp, cp_imp))
+            if orphan:
+                print("    [BEM_ENV] Found Orphan. Overwriting...")
+                # Inject the FRESH asset into the ORPHAN element
+                orphan.SetThermalAsset(new_asset)
+                material.ThermalAssetId = orphan.Id
+            else:
+                # Create Brand New Element
+                print("    [BEM_ENV] Creating New Asset...")
+                pse_id = DB.PropertySetElement.Create(doc, new_asset)
+                material.ThermalAssetId = pse_id
 
         else:
-            # --- CASE B: UPDATE EXISTING ---
+            # --- SCENARIO B: ASSET ALREADY LINKED ---
+            # Force Overwrite: We ignore whatever data was there and inject the new object.
             pse = doc.GetElement(asset_id)
-            asset = pse.GetThermalAsset()
 
-            # Update values
-            asset.ThermalConductivity = k_imp
-            asset.Density = d_imp
-            asset.SpecificHeat = cp_imp
+            # Verify name consistency (Optional, keeps DB clean)
+            if pse.Name != asset_name:
+                try:
+                    pse.Name = asset_name
+                except:
+                    pass  # Ignore naming errors if locked
 
-            # Commit update
-            pse.SetThermalAsset(asset)
-            print("    [BEM_ENV] Updated Asset: K={:.4f}, D={:.4f}, Cp={:.4f}".format(k_imp, d_imp, cp_imp))
-
-        return material.Id
+            pse.SetThermalAsset(new_asset)
+            print("    [BEM_ENV] Asset Overwritten (Refreshed).")
 
     except Exception as e:
-        print("    [BEM_ENV_ERROR] Failed on values (Imp): K={}, D={}, Cp={}".format(k_imp, d_imp, cp_imp))
-        print("    [BEM_ENV_ERROR] Exception: {}".format(e))
+        # If this fails, the element is truly broken (Internal Error).
+        # Last Resort: Delete and Recreate (Uncomment if still failing)
+        print("    [BEM_ENV_ERROR] Hard Refresh Failed: {}".format(e))
         return material.Id
+
+    return material.Id
