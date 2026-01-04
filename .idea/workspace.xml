@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76f30c78-d4c5-4cca-a453-3d4f7935ea80" name="Changes" comment="" />
+    <list default="true" id="76f30c78-d4c5-4cca-a453-3d4f7935ea80" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/CheckEnv.pushbutton/script.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncModel.pushbutton/script.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EnvolventeCTE--790098c4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/global_vertices.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/EnvolventeCTE--790098c4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/process_envolventecte.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/process_walls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BEM.tab/BuildCabana.panel_no/FromJSON.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/BuildCabana.panel/FromJSON.pushbutton/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/run_bem_audit_2025.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run_bem_audit_2025.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/run_bem_audit_2026.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run_bem_audit_2026.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/run_pyrevit.Ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run_pyrevit.Ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/run_pyrevit.bash" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/run_pyrevit.bash" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,10 +34,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "canarionyc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/canarionyc/MyBEMTools.extension.git",
+    "accountId": "53b56933-0fe4-4484-9057-60637346cc75"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="37eT7If5gdoDJsSuyZNU5bhmkJ5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,24 +61,34 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.get_wallcons_long.executor": "Debug",
+    "Python.prepare_data.executor": "Run",
     "Python.script.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/Dev.panel",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
+    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/NewTools.panel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\NewTools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Dev.panel" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.142" />
         <option value="bundled-python-sdk-f2b7a9f6281b-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.142" />
       </set>
     </attachedChunks>
@@ -66,8 +105,12 @@
       <workItem from="1767336558694" duration="612000" />
       <workItem from="1767368931337" duration="2349000" />
       <workItem from="1767419761751" duration="983000" />
+      <workItem from="1767522075635" duration="2077000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -82,6 +125,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MyBEMTools_extension$script.coverage" NAME="script Coverage Results" MODIFIED="1767336755817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BEM.tab/Dev.panel/TestCpython.pushbutton" />
+    <SUITE FILE_PATH="coverage/MyBEMTools_extension$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1767524902597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/MyBEMTools_extension$get_wallcons_long.coverage" NAME="get_wallcons_long Coverage Results" MODIFIED="1767420098985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

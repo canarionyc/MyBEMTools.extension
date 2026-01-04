@@ -23,7 +23,7 @@ $env:DOTNET_ROLL_FORWARD = "LatestMajor"
 # $OneDrivePath = "C:\Users\Usuario\OneDrive - Universidad de La Laguna\"
 # C:\dev\MyBEMTools.extension\scripts\run_bem_audit_2025.ps1
 
-# $script   = "C:\dev\MyBEMTools.extension\BEM.tab\BuildCabana.panel\FromJSON.pushbutton\script.py"
+# $script   = "C:\dev\MyBEMTools.extension\BEM.tab\BuildCabana.panel\FromJSON.pushbutton\script_bak.py"
 # $model    = "C:\RevitAudit\model.rvt"
 
 $script ="C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\Diagnostics.pushbutton\script.py"
