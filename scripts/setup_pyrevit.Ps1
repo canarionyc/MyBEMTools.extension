@@ -112,3 +112,7 @@ pyrevit run "C:\dev\MyBEMTools.extension\scripts\test_thermal.py" "C:\ProyectosC
 .\Run-InRevit.ps1 .\test_connection.py
 
 .\Run-InRevit.ps1 .\test_thermal.py
+
+# extensions
+pyrevit extensions -h
+pyrevit extensions paths
