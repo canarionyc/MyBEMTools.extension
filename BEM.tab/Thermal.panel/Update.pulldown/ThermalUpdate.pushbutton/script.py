@@ -4,43 +4,44 @@ import sys
 import os
 import sqlite3
 import importlib
-import gc  # <--- CRITICAL: Garbage Collector interface
+import gc
+from pyrevit import DB, script
 
-from pyrevit import revit, DB, script
-
-# Force a reload of bem_env so changes apply without restarting Revit
+# Force reload of bem_env so you don't have to restart Revit
 import bem_env
 
 importlib.reload(bem_env)
 from bem_env import update_material_thermal_data, db_path
 
-# --- OUTPUT SETUP ---
 output = script.get_output()
-output.print_md("# BEM SYNC: Obsessive Progress Log (Safe Mode)")
+output.print_md("# BEM SYNC: Obsessive Progress Log (Crash-Proof)")
 
 
 def run_safe_sync():
-    print(">>> STEP 1: Initializing Environment...")
-    doc = revit.doc
-    t = None  # Initialize variable to avoid 'UnboundLocalError' in finally block
+    # 1. GET DOC SAFELY
+    # Using __revit__ avoids some caching issues
+    uidoc = __revit__.ActiveUIDocument
+    if not uidoc:
+        print("[ERROR] No Active Document.")
+        return
+    doc = uidoc.Document
+
+    print(">>> STEP 1: Environment Initialized.")
+
+    t = None
 
     try:
         # --- STEP 2: DATABASE ---
-        print("\n>>> STEP 2: Connecting to BEM Database...")
         if not os.path.exists(db_path):
-            print("    [ERROR] Database not found at: {}".format(db_path))
+            print("    [ERROR] Database not found: {}".format(db_path))
             return
 
-        # Use 'with' context manager for SQLite (Prevents file locking)
         db_layers = []
         with sqlite3.connect(db_path) as conn:
             conn.row_factory = sqlite3.Row
-            print("    [INFO] Connected to: {}".format(os.path.basename(db_path)))
-
-            # Your exact query
             query = """
-                    SELECT wc.name,
-                           wc.material,
+                    SELECT wc.name, \
+                           wc.material, \
                            m.material_group,
                            round(wc.thickness, 4)   as thickness,
                            round(m.conductivity, 4) as conductivity,
@@ -55,81 +56,74 @@ def run_safe_sync():
             db_layers = conn.execute(query).fetchall()
 
         if not db_layers:
-            print("    [WARNING] No data found in DB for 'SOL CAM SANIT'.")
+            print("    [WARNING] No data found in DB.")
             return
 
-        print("    [DATA] Found {} layers.".format(len(db_layers)))
-
-        # --- STEP 3: REVIT TRANSACTION ---
-        print("\n>>> STEP 3: Initializing Revit Transaction...")
-
-        # Manual Transaction Handling
+        # --- STEP 3: TRANSACTION ---
+        print(">>> STEP 2: Starting Transaction...")
         t = DB.Transaction(doc, "BEM: Sync SOL CAM SANIT")
         t.Start()
-        print("    [STATUS] Transaction Started.")
 
-        # Find Target Type
+        # Search for FloorType
         target_name = "SOL CAM SANIT"
         target_type = None
 
-        # Safe Search
-        for ft in DB.FilteredElementCollector(doc).OfClass(DB.FloorType):
+        # Use a localized collector to avoid memory leaks
+        col = DB.FilteredElementCollector(doc).OfClass(DB.FloorType)
+        for ft in col:
             p = ft.get_Parameter(DB.BuiltInParameter.SYMBOL_NAME_PARAM)
             if p and p.AsString() == target_name:
                 target_type = ft
                 break
+        del col  # Release memory
 
         if not target_type:
             print("    [ERROR] FloorType '{}' not found.".format(target_name))
             t.RollBack()
             return
 
-        # Update Layers
+        # Update Logic
         struct = target_type.GetCompoundStructure()
-        revit_layer_count = struct.LayerCount
-
         for i, row in enumerate(db_layers):
-            print("\n    --- Processing Layer {} ---".format(i))
+            if i < struct.LayerCount:
+                # bem_env handles units and null checks
+                mat_id = update_material_thermal_data(doc, row)
 
-            if i >= revit_layer_count:
-                print("    [SKIP] Index {} exceeds Revit layers.".format(i))
-                continue
+                # Update Thickness (Meters -> Feet)
+                thickness_ft = float(row['thickness']) / 0.3048
 
-            # Call logic from bem_env (Unit conversions & Asset creation)
-            mat_id = update_material_thermal_data(doc, row)
+                struct.SetMaterialId(i, mat_id)
+                struct.SetLayerWidth(i, thickness_ft)
+                print("    > Layer {}: Updated ({})".format(i, row['material']))
 
-            # Update Thickness (Meters -> Feet)
-            thickness_ft = float(row['thickness']) / 0.3048
-            print("    [REVIT] Setting Material & Thickness ({} ft)".format(round(thickness_ft, 4)))
-
-            struct.SetMaterialId(i, mat_id)
-            struct.SetLayerWidth(i, thickness_ft)
-
-        # Apply Structure
         target_type.SetCompoundStructure(struct)
 
-        # Commit
         t.Commit()
-        print("    [SUCCESS] Transaction Committed.")
-        output.print_md("### SUCCESS: SOL CAM SANIT Updated")
+        output.print_md("### SUCCESS: Transaction Committed")
 
     except Exception as e:
-        print("\n    [CRITICAL FAILURE]: {}".format(str(e)))
-        if t and t.GetStatus() == DB.TransactionStatus.Started:
+        print("\n[CRITICAL FAILURE]: {}".format(str(e)))
+        if t and t.IsValidObject and t.GetStatus() == DB.TransactionStatus.Started:
             t.RollBack()
             print("    [SAFETY] Transaction Rolled Back.")
 
     finally:
-        # --- STEP 4: CLEANUP (The fix for Journal Errors) ---
-        print("\n>>> STEP 4: Cleanup...")
-        if t:
-            t.Dispose()
-            print("    [SYSTEM] Transaction Disposed.")
+        # --- STEP 4: AGGRESSIVE MEMORY CLEANUP ---
+        # This prevents the 'BorrowedReference' crash on the next run
+        try:
+            if t is not None:
+                if t.IsValidObject:
+                    t.Dispose()
+        except Exception:
+            pass
 
-        # Force Python to release memory NOW
+        # KILL THE PYTHON REFERENCE
+        t = None
         del t
+
+        # FORCE GARBAGE COLLECTION
         gc.collect()
-        print("    [SYSTEM] Garbage Collection Complete.")
+        print("    [SYSTEM] Memory Released.")
 
 
 if __name__ == "__main__":
