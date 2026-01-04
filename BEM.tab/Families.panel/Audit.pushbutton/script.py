@@ -1,7 +1,8 @@
 #! python3
+from pprint import pprint
 import sqlite3
 from pyrevit import revit, DB, script
-from bem_env import DB_PATH
+from bem_env import db_path
 doc = revit.doc
 output = script.get_output()
 
@@ -13,7 +14,7 @@ FT_TO_MM = 304.8
 
 def get_db_layers(construction_name):
     """Fetch layers from SQLite wallcons_long table."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     # Query wallcons_long joined with materials to get thermal data
     query = """
@@ -25,6 +26,7 @@ def get_db_layers(construction_name):
     cursor.execute(query, (construction_name,))
     rows = cursor.fetchall()
     conn.close()
+    print(rows)
     return rows
 
 print("--- OBSESSIVE BEM CROSS-CHECK: SQLITE vs. REVIT ---")
@@ -35,6 +37,8 @@ if not db_layers:
     print("CRITICAL: Construction '{}' not found in SQLite database.".format(CONSTRUCTION_NAME))
 else:
     print("Found {} layers in SQLite for '{}'".format(len(db_layers), CONSTRUCTION_NAME))
+    for layer in db_layers:
+        pprint(layer)
 
 # 2. Get Revit Element
 el = doc.GetElement(DB.Id(TARGET_ID_INT))

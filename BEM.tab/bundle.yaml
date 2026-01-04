@@ -1,7 +1,8 @@
 title: "BEM"
 layout:
   - Setup
-  - Compactness
+  - Model
   - Materials
   - Families
+  - Thermal
   - Tools

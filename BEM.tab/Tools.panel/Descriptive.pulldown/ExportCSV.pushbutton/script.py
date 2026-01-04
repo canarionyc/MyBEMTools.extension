@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_utils import logger
+from bem_env import logger
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences
@@ -17,7 +17,7 @@ import csv
 import os
 from datetime import datetime
 # noinspection PyUnresolvedReferences
-from bem_utils import logger, FT_TO_M, SQFT_TO_M2, R_SI, R_SE
+from bem_env import logger, FT_TO_M, SQFT_TO_M2, R_SI, R_SE
 from Autodesk.Revit.DB import *
 
 

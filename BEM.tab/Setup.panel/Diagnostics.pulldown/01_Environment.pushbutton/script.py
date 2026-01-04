@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from bem_utils import logger, get_forge_units
+from bem_env import logger, get_forge_units
 from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.DB import Document
 import sys

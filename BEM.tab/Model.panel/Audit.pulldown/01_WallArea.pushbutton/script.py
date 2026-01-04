@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_env import logger
+
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences
@@ -10,7 +10,7 @@ from Autodesk.Revit.DB.Architecture import *  # Adds Room and SpatialElement sup
 from Autodesk.Revit.UI import UIApplication
 
 # noinspection PyUnresolvedReferences
-from bem_utils import logger, SQFT_TO_M2
+from bem_env import logger, SQFT_TO_M2
 from Autodesk.Revit.DB import *
 
 

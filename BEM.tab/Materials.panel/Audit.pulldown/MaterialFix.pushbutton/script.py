@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_utils import logger
+from bem_env import logger
 from Autodesk.Revit.DB import *
 
 # Standard Boilerplate
@@ -85,7 +85,7 @@ def run_fixer():
     fix_count = 0
     try:
         for mat in materials:
-            print(mat)
+            print(dir(mat))
             # Check if it's missing the Thermal tab
             if mat.ThermalAssetId == ElementId.InvalidElementId:
                 # Logic: Only fix materials actually used in Walls/Floors (optional filter)

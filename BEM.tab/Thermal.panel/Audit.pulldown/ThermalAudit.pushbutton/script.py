@@ -11,9 +11,9 @@ if False:
     __revit__ = UIApplication()
     doc = Document()
 
-from bem_utils import logger, get_readable_units  # Using your new shared library!
+from bem_env import logger, get_readable_units  # Using your new shared library!
 from Autodesk.Revit.DB import *
-from bem_utils import logger, get_readable_units
+from bem_env import logger, get_readable_units
 from Autodesk.Revit.DB import *
 
 doc = __revit__.ActiveUIDocument.Document
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     audit_basement_walls()
 
 # -*- coding: utf-8 -*-
-from bem_utils import logger, FT_TO_M, R_SI, R_SE
+from bem_env import logger, FT_TO_M, R_SI, R_SE
 from Autodesk.Revit.DB import *
 
 # Standard Header

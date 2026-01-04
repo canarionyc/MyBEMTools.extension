@@ -38,20 +38,22 @@
     &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/MyBEMTools.extension/BEM.tab/Dev.panel&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/MyBEMTools.extension/BEM.tab/Thermal.panel&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Thermal.panel" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Dev.panel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Thermal.pulldown" />
-      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Descriptive.pulldown" />
-      <recent name="C:\dev\MyBEMTools.extension\BEM.tab" />
-      <recent name="C:\dev\MyBEMTools.extension\Families.panel" />
-      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\Lessons.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Model.panel\Audit.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Model.panel\Update.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Model.panel" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Databases.panel" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Setup.panel" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -73,7 +75,8 @@
       <workItem from="1767336558694" duration="612000" />
       <workItem from="1767368931337" duration="2349000" />
       <workItem from="1767419761751" duration="983000" />
-      <workItem from="1767448963484" duration="2928000" />
+      <workItem from="1767448963484" duration="9685000" />
+      <workItem from="1767459967634" duration="93000" />
     </task>
     <servers />
   </component>

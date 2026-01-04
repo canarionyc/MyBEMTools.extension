@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from bem_utils import logger, get_wall_count
+from bem_env import logger, get_wall_count
 from Autodesk.Revit.UI import UIApplication
 from Autodesk.Revit.DB import Document
 # 1. This grabs SpatialElement, Wall, FilteredElementCollector, etc.

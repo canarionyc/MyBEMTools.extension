@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_utils import logger
+from bem_env import logger
 # noinspection PyUnresolvedReferences
 from Autodesk.Revit.DB import *
 # noinspection PyUnresolvedReferences
@@ -48,7 +48,7 @@ run_material_audit()
 
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
-from bem_utils import logger, FT_TO_M
+from bem_env import logger, FT_TO_M
 from Autodesk.Revit.DB import *
 
 # Standard Boilerplate
