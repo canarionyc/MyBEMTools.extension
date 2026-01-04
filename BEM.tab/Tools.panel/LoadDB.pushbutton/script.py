@@ -248,7 +248,7 @@ def create_opening_types(doc):
         # 1. Find a template to duplicate
         tmpl = get_family_symbol(cat)
         if not tmpl:
-            print(f"SKIP {name}: No loaded families found for category.")
+            print("SKIP {}: No loaded families found for category.".format(name))
             continue
 
         # 2. Check if Type exists
@@ -268,12 +268,12 @@ def create_opening_types(doc):
         if not found_type:
             try:
                 found_type = tmpl.Duplicate(name)
-                print(f"CREATED: {name}")
+                print("CREATED: {}".format(name))
             except Exception as e:
-                print(f"ERROR creating {name}: {e}")
+                print("ERROR creating {}: {}".format(name,e))
                 continue
         else:
-            print(f"EXISTS: {name}")
+            print("EXISTS: {}".format(name))
 
         # 4. Set Metadata (Description & Tag)
         try:
@@ -286,7 +286,7 @@ def create_opening_types(doc):
             if p_comm: p_comm.Set(info['tag'])
 
         except Exception as e:
-            print(f"  -> Warn: Could not set params for {name}")
+            print("  -> Warn: Could not set params for {}".format(name))
 
 
 def build_library():

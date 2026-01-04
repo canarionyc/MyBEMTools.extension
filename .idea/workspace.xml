@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76f30c78-d4c5-4cca-a453-3d4f7935ea80" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncTemplate.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/BEM_Inspector.pushbutton/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/prepare_all_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MyBEMTools.extension.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MyBEMTools.extension.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/BEMLibraryExporter.pushbutton/script.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/BEMUniversalInstaller.pushbutton/script.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/Tagger.pushbutton/script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncModel.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncModel.pushbutton/script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BEM.tab/Tools.panel/LoadDB.pushbutton_no/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/LoadDB.pushbutton/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncTemplate.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/NewTools.panel/SyncTemplate.pushbutton/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BEM.tab/Tools.panel/LoadDB.pushbutton/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/BEM.tab/Tools.panel/LoadDB.pushbutton/script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +63,7 @@
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/Tools.panel",
+    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/NewTools.panel",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,8 +75,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\NewTools.panel" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Dev.panel" />
     </key>
   </component>
