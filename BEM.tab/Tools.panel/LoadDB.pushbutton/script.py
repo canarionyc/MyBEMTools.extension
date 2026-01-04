@@ -163,7 +163,7 @@ def ensure_thermal_asset(doc, mat_element, k_val_si):
         pse = PropertySetElement.Create(doc, t_asset)
         mat_element.ThermalAssetId = pse.Id
     except Exception as e:
-        print(f"Warning: Thermal set failed for {mat_element.Name}: {e}")
+        print("Warning: Thermal set failed for {}: {}".format(mat_element.Name,e))
 
 
 def get_or_create_material(doc, mat_name, k_val):
