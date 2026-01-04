@@ -116,3 +116,9 @@ pyrevit run "C:\dev\MyBEMTools.extension\scripts\test_thermal.py" "C:\ProyectosC
 # extensions
 pyrevit extensions -h
 pyrevit extensions paths
+
+# Revit logs in 
+$ENV:LOCALAPPDATA
+Set-Location "C:\Users\tglla\AppData\Local\Autodesk\Revit\Autodesk Revit 2026"
+
+# i deleted c:/Users/tglla/AppData/Roaming/pyRevit/2025

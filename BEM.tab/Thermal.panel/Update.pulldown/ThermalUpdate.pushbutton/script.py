@@ -7,33 +7,27 @@ import importlib
 import gc
 from pyrevit import DB, script
 
-# Force reload of bem_env so you don't have to restart Revit
+# Force reload
 import bem_env
 
 importlib.reload(bem_env)
 from bem_env import update_material_thermal_data, db_path
 
 output = script.get_output()
-output.print_md("# BEM SYNC: Obsessive Progress Log (Crash-Proof)")
+output.print_md("# BEM SYNC: Scope-Isolated (Final Fix)")
 
 
-def run_safe_sync():
-    # 1. GET DOC SAFELY
-    # Using __revit__ avoids some caching issues
-    uidoc = __revit__.ActiveUIDocument
-    if not uidoc:
-        print("[ERROR] No Active Document.")
-        return
-    doc = uidoc.Document
-
-    print(">>> STEP 1: Environment Initialized.")
-
+def _core_logic(doc):
+    """
+    This inner function handles the logic.
+    When this function returns, the variable 't' (Transaction)
+    goes out of scope naturally, making it easier to collect.
+    """
     t = None
-
     try:
-        # --- STEP 2: DATABASE ---
+        # --- DATABASE ---
         if not os.path.exists(db_path):
-            print("    [ERROR] Database not found: {}".format(db_path))
+            print("    [ERROR] Database not found.")
             return
 
         db_layers = []
@@ -59,42 +53,41 @@ def run_safe_sync():
             print("    [WARNING] No data found in DB.")
             return
 
-        # --- STEP 3: TRANSACTION ---
-        print(">>> STEP 2: Starting Transaction...")
+        # --- TRANSACTION ---
+        print(">>> Starting Transaction (Inner Scope)...")
         t = DB.Transaction(doc, "BEM: Sync SOL CAM SANIT")
         t.Start()
 
-        # Search for FloorType
+        # Find Type
         target_name = "SOL CAM SANIT"
         target_type = None
 
-        # Use a localized collector to avoid memory leaks
         col = DB.FilteredElementCollector(doc).OfClass(DB.FloorType)
         for ft in col:
             p = ft.get_Parameter(DB.BuiltInParameter.SYMBOL_NAME_PARAM)
             if p and p.AsString() == target_name:
                 target_type = ft
                 break
-        del col  # Release memory
+        del col  # Immediate cleanup
 
         if not target_type:
             print("    [ERROR] FloorType '{}' not found.".format(target_name))
             t.RollBack()
             return
 
-        # Update Logic
+        # Update Structure
         struct = target_type.GetCompoundStructure()
         for i, row in enumerate(db_layers):
             if i < struct.LayerCount:
-                # bem_env handles units and null checks
+                # bem_env Logic
                 mat_id = update_material_thermal_data(doc, row)
 
-                # Update Thickness (Meters -> Feet)
+                # Thickness
                 thickness_ft = float(row['thickness']) / 0.3048
 
                 struct.SetMaterialId(i, mat_id)
                 struct.SetLayerWidth(i, thickness_ft)
-                print("    > Layer {}: Updated ({})".format(i, row['material']))
+                print("    > Layer {}: Updated".format(i))
 
         target_type.SetCompoundStructure(struct)
 
@@ -106,24 +99,46 @@ def run_safe_sync():
         if t and t.IsValidObject and t.GetStatus() == DB.TransactionStatus.Started:
             t.RollBack()
             print("    [SAFETY] Transaction Rolled Back.")
+        raise e  # Re-raise to trigger outer cleanup
 
     finally:
-        # --- STEP 4: AGGRESSIVE MEMORY CLEANUP ---
-        # This prevents the 'BorrowedReference' crash on the next run
-        try:
-            if t is not None:
-                if t.IsValidObject:
-                    t.Dispose()
-        except Exception:
-            pass
+        # Dispose inside the inner scope
+        if t and t.IsValidObject:
+            t.Dispose()
 
-        # KILL THE PYTHON REFERENCE
-        t = None
-        del t
 
-        # FORCE GARBAGE COLLECTION
+def run_safe_sync():
+    """
+    The Outer Shell. Its only job is to run the logic
+    and then SCRUB memory.
+    """
+    # 1. Get Doc
+    uidoc = __revit__.ActiveUIDocument
+    if not uidoc: return
+    doc = uidoc.Document
+
+    print(">>> STEP 1: Initializing...")
+
+    try:
+        _core_logic(doc)
+    except Exception:
+        pass  # Error already printed in inner scope
+
+    finally:
+        # --- THE NUCLEAR CLEANUP ---
+        print(">>> STEP 2: System Cleanup...")
+
+        # 1. Clear the Python System Error Cache
+        # This releases the Stack Trace which holds the Transaction variable
+        sys.last_type = None
+        sys.last_value = None
+        sys.last_traceback = None
+
+        # 2. Force Garbage Collection (Twice is safer for .NET bridges)
         gc.collect()
-        print("    [SYSTEM] Memory Released.")
+        gc.collect()
+
+        print("    [SYSTEM] Memory Scrubbed. Safe to re-run.")
 
 
 if __name__ == "__main__":
