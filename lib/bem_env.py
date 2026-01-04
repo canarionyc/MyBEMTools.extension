@@ -43,13 +43,44 @@ logging.basicConfig(level=logging.DEBUG,
 )
 logger = logging.getLogger('BEM_Project')
 
+
+
+
+# Ejemplo de uso:
+# 'Hormigón armado 2300 < d < 2500' -> 'Hormigón armado 2300 inf d inf 2500'
+# 'Cloruro de polivinilo [PVC]'     -> 'Cloruro de polivinilo (PVC)'
+
+# def get_u_value(wall_type):
+#     """Calculates U-Value (W/m²·K). Formula: U = 1/R_total"""
+#     r_value = wall_type.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_FINAL_RVALUE).AsDouble()
+#     if r_value > 0:
+#         # Convert from Imperial R to Metric U
+#         # R_metric = R_imperial * 0.1761
+#         return 1.0 / (r_value * 0.1761)
+#     return None
+#
+# def get_readable_units(doc):
+#     unit_id = doc.GetUnits().GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()
+#     return LabelUtils.GetLabelForUnit(unit_id)
+#
+# def get_forge_units(doc):
+#     """Returns human-readable length units (e.g., 'Meters')"""
+#     units = doc.GetUnits()
+#     spec_id = SpecTypeId.Length
+#     unit_id = units.GetFormatOptions(spec_id).GetUnitTypeId()
+#     return LabelUtils.GetLabelForUnit(unit_id)
+#
+# def get_wall_count(doc):
+#     """Basic collector to verify API access"""
+#     return FilteredElementCollector(doc).OfClass(Wall).WhereElementIsNotElementType().GetElementCount()
+
+
 # -*- coding: utf-8 -*-
 import sys
 import unicodedata
-# We use the direct Revit API imports to be safe
 from Autodesk.Revit import DB
 
-# --- ENVIRONMENT & PATHS ---
+# --- PATH & CONSTANTS ---
 db_path = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\hulc_data.sqlite"
 
 
@@ -57,17 +88,15 @@ db_path = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config
 def sanitize_revit_name(text):
     """
     1. Removes Accents (Hormigón -> Hormigon)
-    2. Replaces prohibited Revit characters (< > [ ] { } etc)
+    2. Replaces prohibited characters
     3. Trims whitespace
     """
     if not text:
         return "Unnamed_Material"
 
-    # Normalize unicode characters (remove accents)
     nfkd_form = unicodedata.normalize('NFKD', str(text))
     text = "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
-    # Map prohibited characters
     translations = {
         "<": "inf", ">": "sup",
         "[": "(", "]": ")",
@@ -86,79 +115,56 @@ def update_material_thermal_data(doc, data):
     raw_name = data['material']
     safe_name = sanitize_revit_name(raw_name)
 
-    print("    [BEM_ENV] Sanitized: '{}' -> '{}'".format(raw_name, safe_name))
+    print("    [BEM_ENV] Processing: '{}'".format(safe_name))
 
     # 2. Find or Create Material
     material = next((m for m in DB.FilteredElementCollector(doc).OfClass(DB.Material)
                      if m.Name == safe_name), None)
 
     if not material:
-        print("    [BEM_ENV] Creating new Material: {}".format(safe_name))
         mat_id = DB.Material.Create(doc, safe_name)
         material = doc.GetElement(mat_id)
 
-    # 3. Manage Thermal Asset (The Critical Part)
+    # 3. Manage Thermal Asset
     asset_id = material.ThermalAssetId
+    pse = None
 
     if asset_id == DB.ElementId.InvalidElementId:
-        # --- CREATION LOGIC ---
+        # Create new Asset
         asset_name = safe_name + "_Thermal"
-        print("    [BEM_ENV] Creating new ThermalAsset: {}".format(asset_name))
-
-        # DEFINITION (This was likely missing or misspelled in your file)
         thermal_asset = DB.ThermalAsset(asset_name, DB.ThermalMaterialType.Solid)
-
-        # ASSIGNMENT
-        pse = DB.PropertySetElement.Create(doc, thermal_asset)
-        material.ThermalAssetId = pse.Id
+        pse_id = DB.PropertySetElement.Create(doc, thermal_asset)
+        pse = doc.GetElement(pse_id)
+        material.ThermalAssetId = pse_id
     else:
-        # --- EDITING LOGIC ---
+        # Edit existing
         pse = doc.GetElement(asset_id)
 
-    # 4. Update Properties (Guard against Zeros)
-    # Revit crashes if Conductivity is 0.0
-    k = max(0.001, float(data['conductivity']))
-    d = max(0.001, float(data['density']))
-    cp = max(0.001, float(data['specificheat']))
+    # 4. UNIT CONVERSION (The Fix for the Internal Error)
+    # We must convert SI (DB) -> Revit Internal (Imperial)
+    # ---------------------------------------------------
+    val_k_si = float(data['conductivity'])  # W/(m·K)
+    val_d_si = float(data['density'])  # kg/m³
+    val_cp_si = float(data['specificheat'])  # J/(kg·K)
 
-    # Get the asset object to edit it
+    # Use Revit's internal engine to convert
+    # Note: Using ForgeTypeId (Revit 2022+) or UnitTypeId
+
+    k_internal = DB.UnitUtils.ConvertToInternalUnits(val_k_si, DB.UnitTypeId.WattsPerMeterKelvin)
+    d_internal = DB.UnitUtils.ConvertToInternalUnits(val_d_si, DB.UnitTypeId.KilogramsPerCubicMeter)
+    cp_internal = DB.UnitUtils.ConvertToInternalUnits(val_cp_si, DB.UnitTypeId.JoulesPerKilogramKelvin)
+
+    # 5. Apply Values
     asset = pse.GetThermalAsset()
-    asset.ThermalConductivity = k
-    asset.Density = d
-    asset.SpecificHeat = cp
+
+    # Guard against absolute zeros which also crash Revit
+    asset.ThermalConductivity = max(0.0001, k_internal)
+    asset.Density = max(0.0001, d_internal)
+    asset.SpecificHeat = max(0.0001, cp_internal)
 
     try:
         pse.SetThermalAsset(asset)
         return material.Id
     except Exception as e:
-        print("    [BEM_ENV_ERROR] Failed to set Thermal Asset: {}".format(e))
+        print("    [BEM_ENV_ERROR] Failed to set properties for {}: {}".format(safe_name, e))
         return material.Id
-
-
-# Ejemplo de uso:
-# 'Hormigón armado 2300 < d < 2500' -> 'Hormigón armado 2300 inf d inf 2500'
-# 'Cloruro de polivinilo [PVC]'     -> 'Cloruro de polivinilo (PVC)'
-
-def get_u_value(wall_type):
-    """Calculates U-Value (W/m²·K). Formula: U = 1/R_total"""
-    r_value = wall_type.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_FINAL_RVALUE).AsDouble()
-    if r_value > 0:
-        # Convert from Imperial R to Metric U
-        # R_metric = R_imperial * 0.1761
-        return 1.0 / (r_value * 0.1761)
-    return None
-
-def get_readable_units(doc):
-    unit_id = doc.GetUnits().GetFormatOptions(SpecTypeId.Length).GetUnitTypeId()
-    return LabelUtils.GetLabelForUnit(unit_id)
-
-def get_forge_units(doc):
-    """Returns human-readable length units (e.g., 'Meters')"""
-    units = doc.GetUnits()
-    spec_id = SpecTypeId.Length
-    unit_id = units.GetFormatOptions(spec_id).GetUnitTypeId()
-    return LabelUtils.GetLabelForUnit(unit_id)
-
-def get_wall_count(doc):
-    """Basic collector to verify API access"""
-    return FilteredElementCollector(doc).OfClass(Wall).WhereElementIsNotElementType().GetElementCount()
