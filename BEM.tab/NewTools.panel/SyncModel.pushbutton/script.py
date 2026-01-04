@@ -2,23 +2,45 @@
 import sys
 import os
 import json
-import io  # <--- THE FIX for reading files
-# noinspection PyUnresolvedReferences
+import io
 from pyrevit import script, DB, revit
 from System.Collections.Generic import List
 
 output = script.get_output()
-output.print_md("# 🏗️ STEP 2: Model Sync (Final)")
+output.print_md("# 🏗️ STEP 2: Model Sync (Class + Comments)")
 
 JSON_SOURCE = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\bem_update_package.json"
-UNIT_DUMP_FILE = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\revit_units_dump.txt"
 
-from bem_utils import dump_all_units
-dump_all_units()
 
-# --- 2. SATELLITE SAFE CONVERSION ---
+# --- HELPER: Class & Comments ---
+def update_identity_data(doc, material, class_name):
+    """
+    Updates Identity Tab data: Class and Comments.
+    """
+    # 1. Update Class (Identity Tab)
+    if class_name:
+        try:
+            old_class = material.MaterialClass
+            material.MaterialClass = class_name
+            print("      |-- [IDENTITY] Class: '{}' -> '{}'".format(old_class, class_name))
+        except Exception as e:
+            print("      |-- [WARN] Failed to set Class: {}".format(e))
+
+    # 2. Update Comments to "CTE" (for easy searching)
+    try:
+        # Parameter: Comments (BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS)
+        p_comments = material.get_Parameter(DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS)
+        if p_comments and not p_comments.IsReadOnly:
+            p_comments.Set("CTE")
+            print("      |-- [IDENTITY] Comments set to 'CTE'")
+    except Exception as e:
+        print("      |-- [WARN] Failed to set Comments: {}".format(e))
+
+
+# --- STANDARD HELPERS ---
 def to_internal(value, type_id):
     return DB.UnitUtils.ConvertToInternalUnits(value, type_id)
+
 
 def clean_slate_asset(doc, asset_name, current_asset_id):
     ids_to_delete = []
@@ -39,31 +61,33 @@ def clean_slate_asset(doc, asset_name, current_asset_id):
 
 def get_or_create_material_with_asset(doc, item):
     mat_name = item['material_name']
+    mat_class = item.get('material_class', 'Generic')
     asset_name = item['asset_name']
     si = item['properties_si']
 
-    # Search for material
+    # 1. Get/Create Material
     mat = next((m for m in DB.FilteredElementCollector(doc).OfClass(DB.Material) if m.Name == mat_name), None)
     if not mat:
         mat = doc.GetElement(DB.Material.Create(doc, mat_name))
 
-    # --- SATELLITE SAFE CONVERSION ---
+    print("    [MATERIAL] '{}'".format(mat_name))
+
+    # 2. UPDATE IDENTITY (Class + Comments)
+    update_identity_data(doc, mat, mat_class)
+
+    # 3. UNIT CONVERSION
     k_val = to_internal(si['k'], DB.UnitTypeId.WattsPerMeterKelvin)
     d_val = to_internal(si['d'], DB.UnitTypeId.KilogramsPerCubicMeter)
 
-    # Try Celsius first, fallback to Kelvin
     try:
         cp_val = to_internal(si['cp'], DB.UnitTypeId.JoulesPerKilogramDegreeCelsius)
     except AttributeError:
         cp_val = to_internal(si['cp'], DB.UnitTypeId.JoulesPerKilogramKelvin)
 
-    # Logging
-    print("    [ASSET] '{}'".format(asset_name))
-    print("      |-- K   (SI: {:.3f}) -> Internal: {:.5f}".format(si['k'], k_val))
-    print("      |-- Rho (SI: {:.0f}) -> Internal: {:.5f}".format(si['d'], d_val))
-    print("      |-- Cp  (SI: {:.0f}) -> Internal: {:.5f}".format(si['cp'], cp_val))
+    # 4. LOGGING
+    print("      |-- [THERMAL] K: {:.3f} | Rho: {:.0f} | Cp: {:.0f}".format(si['k'], si['d'], si['cp']))
 
-    # --- CLEAN & CREATE ---
+    # 5. ASSET RECREATION
     if mat.ThermalAssetId != DB.ElementId.InvalidElementId:
         mat.ThermalAssetId = DB.ElementId.InvalidElementId
     clean_slate_asset(doc, asset_name, mat.ThermalAssetId)
@@ -80,20 +104,15 @@ def get_or_create_material_with_asset(doc, item):
 
 
 def run_sync():
-    # noinspection PyUnresolvedReferences
     doc = __revit__.ActiveUIDocument.Document
 
-    print("\n>>> Loading Pure SI Data...")
+    print("\n>>> Loading Data...")
     if not os.path.exists(JSON_SOURCE): return
 
-    # --- THE MOJIBAKE FIX ---
-    # We use io.open with explicit encoding='utf-8'
-    # We read the file content first, then pass to json.loads
     with io.open(JSON_SOURCE, 'r', encoding='utf-8') as f:
-        file_content = f.read()
-        data = json.loads(file_content)
+        data = json.loads(f.read())
 
-    t = DB.Transaction(doc, "BEM: Sync Safe Units")
+    t = DB.Transaction(doc, "BEM: Sync Class & Comments")
     t.Start()
 
     try:
@@ -116,14 +135,12 @@ def run_sync():
 
                 th_val = to_internal(item['properties_si']['thickness'], DB.UnitTypeId.Meters)
 
-                print("    [THICKNESS] SI: {:.4f}m -> Internal: {:.4f}".format(item['properties_si']['thickness'],
-                                                                               th_val))
                 struct.SetMaterialId(i, mat_id)
                 struct.SetLayerWidth(i, th_val)
 
         target_type.SetCompoundStructure(struct)
         t.Commit()
-        output.print_md("### ✅ SUCCESS: Model Updated")
+        output.print_md("### ✅ SUCCESS: Class & Comments Updated")
 
     except Exception as e:
         print("\n    [FAILURE] {}".format(e))
