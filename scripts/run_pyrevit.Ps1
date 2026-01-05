@@ -52,7 +52,7 @@ if ($fileInfo.Length -eq 0) {
 
 Write-Host "Validation passed. Running script: $ScriptPath" -ForegroundColor Cyan
 
-# pyrevit run "C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\LiveTest.pushbutton\script.py" --revit="C:\Program Files\Autodesk\Revit 2026\Revit.exe" `
+# pyrevit run "C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\LiveTest.pushbutton\script_bak.py" --revit="C:\Program Files\Autodesk\Revit 2026\Revit.exe" `
 
 
 # Execute pyRevit run with the parameters

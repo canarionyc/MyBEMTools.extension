@@ -24,9 +24,9 @@ export MY_AUDIT_MODEL="$MODEL_PATH"
 pyrevit run "$SCRIPT_PATH" "$MODEL_PATH" --revit="2025"
 
 # pyrevit run \
-#   "C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\LiveTest.pushbutton\script.py" \
+#   "C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel\LiveTest.pushbutton\script_bak.py" \
 #   "C:\RevitAudit\Snowdon Towers Sample Structural.rvt" \
 #   --revit="2025"
 
 
-# pyrevit run "C:\Users\Public\script.py" "C:\RevitAudit\Snowdon Towers Sample Structural.rvt" --revit="2025"
+# pyrevit run "C:\Users\Public\script_bak.py" "C:\RevitAudit\Snowdon Towers Sample Structural.rvt" --revit="2025"

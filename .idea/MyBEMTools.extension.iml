@@ -7,9 +7,7 @@
     <content url="file://$MODULE_DIR$/../pyrevit-stubs/pyRevitLabs">
       <sourceFolder url="file://$MODULE_DIR$/../pyrevit-stubs/pyRevitLabs" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../repos/pyRevit-Master/pyrevitlib">
-      <sourceFolder url="file://$MODULE_DIR$/../../repos/pyRevit-Master/pyrevitlib" isTestSource="false" />
-    </content>
+    <content url="file://$MODULE_DIR$/../../repos/pyRevit-Master/pyrevitlib/pyrevit" />
     <orderEntry type="jdk" jdkName="Python 3.12 (MyBEMTools.extension)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
