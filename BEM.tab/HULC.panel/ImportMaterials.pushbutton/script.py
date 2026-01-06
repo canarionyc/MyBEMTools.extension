@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Imports HULC materials from a JSON file.
-Features: Verbose Logging, Case-Insensitive Search, Duplicate Protection.
+Style: Uses the Output Window for the final report (Copy-Paste friendly).
 """
 __title__ = "Import HULC\nMaterials"
 __author__ = "BEM Tools"
@@ -10,13 +10,30 @@ import os
 import re
 import json
 import unicodedata
-import clr
 
 # pyRevit libraries
 from pyrevit import revit, forms, script
 
 # Revit API imports
 import Autodesk.Revit.DB as DB
+
+# ============================================================================
+# SETUP OUTPUT WINDOW
+# ============================================================================
+output = script.get_output()
+output.close()  # Close any previous windows
+output.show()  # Force the window to appear immediately
+output.set_title("HULC Import Report")
+
+
+def log(msg):
+    """Prints message to the output window."""
+    print(msg)
+
+
+def log_action(action, details):
+    """Formatted action logger."""
+    print("   [{}] {}".format(action, details))
 
 
 # ============================================================================
@@ -35,21 +52,6 @@ BIP_CLASS = SafeBIP.get("MATERIAL_PARAM_CLASS", -1002101)
 BIP_DESCRIPTION = SafeBIP.get("ALL_MODEL_DESCRIPTION", -1001202)
 BIP_COMMENTS = SafeBIP.get("ALL_MODEL_INSTANCE_COMMENTS", -1001205)
 BIP_MODEL = SafeBIP.get("ALL_MODEL_MODEL", -1001203)
-
-# ============================================================================
-# LOGGING SETUP
-# ============================================================================
-output = script.get_output()
-
-
-def log(msg):
-    """Prints message to the output window immediately."""
-    print(msg)
-
-
-def log_action(action, details):
-    """Formatted action logger."""
-    print("   [{}] {}".format(action, details))
 
 
 # ============================================================================
@@ -77,7 +79,6 @@ def sanitize_revit_name(text):
 def process_hulc_name(raw_name):
     if not raw_name: return "Material_Sin_Nombre"
     clean = raw_name
-    # Fix "d entre a y b"
     pattern = r"([\d\.]+)\s*<\s*d\s*<\s*([\d\.]+)"
     replacement = r"d entre \1 y \2"
     clean = re.sub(pattern, replacement, clean)
@@ -85,55 +86,43 @@ def process_hulc_name(raw_name):
 
 
 def get_or_create_material(doc, name, local_cache):
-    """
-    Robust fetcher. Checks Local Cache -> Revit DB -> Creates New.
-    """
     name_lower = name.lower().strip()
 
-    # 1. CHECK LOCAL CACHE (Fastest, sees things created 1ms ago)
+    # 1. CHECK LOCAL CACHE
     if name_lower in local_cache:
         log_action("CACHE", "Found '{}' in local cache.".format(name))
         return local_cache[name_lower]
 
-    # 2. CHECK REVIT DB (Case Insensitive)
+    # 2. CHECK REVIT DB
     collector = DB.FilteredElementCollector(doc).OfClass(DB.Material)
     for mat in collector:
         if mat.Name.lower().strip() == name_lower:
             log_action("FOUND", "Found existing '{}' in Revit.".format(mat.Name))
-            local_cache[name_lower] = mat  # Update cache
+            local_cache[name_lower] = mat
             return mat
 
-    # 3. CREATE NEW (With Safety Net)
+    # 3. CREATE NEW
     try:
         log_action("CREATE", "Creating NEW material: '{}'".format(name))
         new_id = DB.Material.Create(doc, name)
         new_mat = doc.GetElement(new_id)
         local_cache[name_lower] = new_mat
         return new_mat
-
     except Exception as e:
-        # CRASH HANDLER: If Revit says "Name in use", we missed it in Step 2.
-        # This acts as a final fail-safe.
         if "in use" in str(e) or "exist" in str(e):
-            log_action("WARN", "Name collision detected during creation. Retrying fetch...")
-            # Try to fetch exactly by name one last time
+            log_action("WARN", "Name collision. Retrying fetch...")
             check_again = DB.FilteredElementCollector(doc).OfClass(DB.Material) \
                 .Where(lambda m: m.Name == name).FirstElement()
             if check_again:
-                log_action("RECOVERED", "Successfully recovered material '{}'".format(name))
                 local_cache[name_lower] = check_again
                 return check_again
-
-        # If we really can't fix it, raise the error
         raise e
 
 
 def set_param(elem, bip, value):
     p = elem.get_Parameter(bip)
     if p and value is not None:
-        val_str = str(value)
-        # log_action("PARAM", "Setting {} = {}".format(p.Definition.Name, val_str))
-        p.Set(val_str)
+        p.Set(str(value))
 
 
 # ============================================================================
@@ -151,23 +140,22 @@ if json_path:
         with open(json_path, 'r') as f:
             data = json.load(f)
     except Exception as e:
-        forms.alert("Failed to read JSON file:\n" + str(e))
+        log("CRITICAL ERROR: Failed to read JSON file.")
+        log(str(e))
         data = None
 
     if data:
         doc = revit.doc
-        # Cache to store materials created in this session to prevent duplicates
         material_cache = {}
 
-        print("========================================")
-        print("STARTING MATERIAL IMPORT")
-        print("File: {}".format(os.path.basename(json_path)))
-        print("Items to Process: {}".format(len(data)))
-        print("========================================")
+        log("========================================")
+        log("STARTING MATERIAL IMPORT")
+        log("File: {}".format(os.path.basename(json_path)))
+        log("Items to Process: {}".format(len(data)))
+        log("========================================")
 
         t = DB.Transaction(doc, "Import HULC Materials")
         t.Start()
-        log("Transaction Started...")
 
         try:
             count = 0
@@ -175,15 +163,10 @@ if json_path:
                 raw_name = item.get('name', 'Unnamed')
                 log("\n[{}/{}] Processing: {}".format(i + 1, len(data), raw_name))
 
-                # 1. Sanitize
                 final_name = process_hulc_name(raw_name)
-                if final_name != raw_name:
-                    log_action("RENAME", "Sanitized to: '{}'".format(final_name))
 
-                # 2. Get/Create
                 mat = get_or_create_material(doc, final_name, material_cache)
 
-                # 3. Parameters
                 mat_group = item.get('material_group', 'General')
                 k_val = item.get('conductivity', 0.0)
                 d_val = item.get('density', 0)
@@ -192,20 +175,23 @@ if json_path:
                 set_param(mat, BIP_CLASS, mat_group)
                 set_param(mat, BIP_DESCRIPTION, "HULC Import | Density: {} kg/m3".format(d_val))
                 set_param(mat, BIP_COMMENTS, "Cp: {} J/kgK".format(cp_val))
-                set_param(mat, BIP_MODEL, k_val)  # K-Value
+                set_param(mat, BIP_MODEL, k_val)
 
                 count += 1
 
-            print("\n========================================")
-            log("Committing Transaction...")
             t.Commit()
-            log("Transaction Committed Successfully.")
 
-            forms.alert("Success!\nProcessed {} materials.".format(count), warn_icon=False)
+            # FINAL REPORT (No pop-up, just big text)
+            log("\n" + "=" * 40)
+            log("SUCCESS: Processed {} materials.".format(count))
+            log("=" * 40)
+
+            # This line ensures the output window stays active
+            output.center()
 
         except Exception as e:
-            log("\n!!! CRITICAL ERROR !!!")
-            log(str(e))
-            log("Rolling back Transaction...")
             t.RollBack()
-            forms.alert("Error during processing:\n" + str(e))
+            log("\n" + "!" * 40)
+            log("CRITICAL ERROR - TRANSACTION ROLLED BACK")
+            log(str(e))
+            log("!" * 40)
