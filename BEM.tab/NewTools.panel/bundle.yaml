@@ -1,0 +1,10 @@
+title: "NewTools"
+layout:
+  - CheckEnv
+  - SyncModel
+  - SyncTemplate
+  - Tagger
+  - BEMLibraryExporter
+  - BEMUniversalInstaller
+  - RevealConstraints
+  - GraphConstraints

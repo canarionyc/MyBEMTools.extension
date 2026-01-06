@@ -8,9 +8,11 @@ output = script.get_output()
 output.print_md("# 📤 BEM LIBRARY EXPORTER")
 
 # Output path (Desktop)
-desktop = os.path.join(os.path.expanduser("~"), "Desktop")
-csv_path = os.path.join(desktop, "BEM_Library_Export.csv")
+desktop = os.path.join(os.path.expanduser("~"), "OneDrive", "Desktop")
+if not os.path.exists(desktop):
+    desktop = os.path.join(os.path.expanduser("~"), "Desktop")
 
+csv_path = os.path.join(desktop, "BEM_Library_Export.csv")
 
 def get_safe_name(element):
     """Safely gets the name of a type."""
@@ -92,6 +94,7 @@ def run_export():
 
             print("\n✅ EXPORT SUCCESS!")
             print("File saved to: " + csv_path)
+            print("### [Click here to open folder](file:///{})".format(desktop.replace("\\", "/")))
             output.print_md("### [Click here to open folder](file:///{})".format(desktop.replace("\\", "/")))
         except Exception as e:
             print("❌ Error writing file: " + str(e))

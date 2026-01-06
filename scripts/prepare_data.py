@@ -5,6 +5,7 @@ import os
 import sqlite3
 import json
 import re
+from pprint import pprint
 
 # --- CONFIGURATION ---
 DB_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\hulc_data.sqlite"
@@ -57,6 +58,7 @@ def run_prep():
             # Query includes 'resistance' for air gap calculation
             query = """
                     SELECT wc.name        as assembly_name,
+                        wc2.revit_category,
                            wc.material    as raw_material_name,
                            wc.thickness   as thickness_m,
                            m.material_group,
@@ -64,9 +66,10 @@ def run_prep():
                            m.density      as d_si,
                            m.specificheat as cp_si,
                            m.resistance   as r_si
-                    FROM wallcons_long wc
-                             LEFT JOIN materials m ON wc.material = m.name
+                    FROM wallcons_long wc, wallcons wc2
+                    LEFT JOIN materials m ON wc.material = m.name                  
                     WHERE wc.name = 'FOR INT AC-NH'
+                    and wc2.name = wc.name
                     ORDER BY wc.rowid; \
                     """
 
@@ -76,7 +79,7 @@ def run_prep():
             for row in rows:
                 safe_name = sanitize_name(row['raw_material_name'])
                 group_name = sanitize_name(row['material_group']) if row['material_group'] else "Generic"
-
+                revit_category=row['revit_category']
                 # --- SAFELY EXTRACT VALUES ---
                 th_val = safe_float(row['thickness_m'], 0.0)
                 k_val = safe_float(row['k_si'])
@@ -105,6 +108,7 @@ def run_prep():
 
                 item = {
                     "assembly": row['assembly_name'],
+                    "revit_category": row['revit_category'],
                     "material_name": safe_name,
                     "material_class": group_name,  # <--- We send this to Step 2
                     "asset_name": safe_name + "_Termico",
@@ -116,6 +120,7 @@ def run_prep():
                     }
                 }
                 data_package.append(item)
+        pprint(data_package)
 
         with open(JSON_OUTPUT, 'w', encoding='utf-8') as f:
             json.dump(data_package, f, indent=4, ensure_ascii=False)

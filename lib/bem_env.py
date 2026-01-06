@@ -25,7 +25,7 @@ def sanitize_revit_name(text):
         text = text.replace(char, replacement)
     return " ".join(text.split())
 
-
+# dont hardcode unit conversions
 def update_material_thermal_data(doc, data):
     # 1. Prepare Names
     raw_name = data['material']

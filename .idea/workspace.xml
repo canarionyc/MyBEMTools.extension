@@ -39,6 +39,9 @@
     &quot;accountId&quot;: &quot;53b56933-0fe4-4484-9057-60637346cc75&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/scripts/prepare_data.py" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -63,18 +66,20 @@
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/NewTools.panel",
+    "last_opened_file_path": "C:/dev/MyBEMTools.extension/BEM.tab/Materials.panel/ImportFromHULC.pulldown",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable",
+    "settings.editor.selected.configurable": "com.android.studio.ml.bot.mainConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel\ImportFromHULC.pulldown" />
+      <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Materials.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\NewTools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Tools.panel" />
       <recent name="C:\dev\MyBEMTools.extension\BEM.tab\Dev.panel" />
@@ -83,7 +88,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.142" />
         <option value="bundled-python-sdk-f2b7a9f6281b-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.142" />
       </set>
     </attachedChunks>
@@ -101,6 +105,8 @@
       <workItem from="1767368931337" duration="2349000" />
       <workItem from="1767419761751" duration="983000" />
       <workItem from="1767522075635" duration="2438000" />
+      <workItem from="1767589165804" duration="1491000" />
+      <workItem from="1767671394807" duration="6248000" />
     </task>
     <servers />
   </component>
@@ -120,8 +126,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MyBEMTools_extension$script.coverage" NAME="script Coverage Results" MODIFIED="1767336755817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BEM.tab/Dev.panel/TestCpython.pushbutton" />
-    <SUITE FILE_PATH="coverage/MyBEMTools_extension$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1767538877863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/MyBEMTools_extension$prepare_all_data.coverage" NAME="prepare_all_data Coverage Results" MODIFIED="1767543500931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/MyBEMTools_extension$get_wallcons_long.coverage" NAME="get_wallcons_long Coverage Results" MODIFIED="1767420098985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/MyBEMTools_extension$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1767683087118" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/MyBEMTools_extension$prepare_all_data.coverage" NAME="prepare_all_data Coverage Results" MODIFIED="1767543500931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>
