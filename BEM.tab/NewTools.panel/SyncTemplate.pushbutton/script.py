@@ -58,7 +58,6 @@ def apply_tag(element):
         p = element.get_Parameter(DB.BuiltInParameter.ALL_MODEL_TYPE_COMMENTS)
         if p:
             p.Set(TAG_VALUE)
-            # print("   🏷️ Tagged 'CTE'")
     except:
         print("   ⚠️ Failed to tag element.")
 
@@ -96,21 +95,37 @@ def get_or_create_type(doc, type_name):
     print("\n[Processing] '{}'".format(type_name))
     name_upper = type_name.upper()
 
+    # 1. IDENTIFY TARGET CLASS AND CATEGORY
+    target_class = None
+    target_bic = None
+
     if any(x in name_upper for x in ["MURO", "TAB", "PARTICION", "FACHADA"]):
         target_class = DB.WallType
+        target_bic = DB.BuiltInCategory.OST_Walls
+
+    # --- SPECIFIC SWITCH FOR SANITARY SLAB ---
+    elif "SOL CAM SANIT" in name_upper:
+        target_class = DB.FloorType
+        target_bic = DB.BuiltInCategory.OST_StructuralFoundation  # <--- Force Foundation
+    # -----------------------------------------
+
     elif any(x in name_upper for x in ["FOR", "SOL", "LOSA"]):
         target_class = DB.FloorType
+        target_bic = DB.BuiltInCategory.OST_Floors  # <--- Force Regular Floor
+
     elif any(x in name_upper for x in ["CUB", "TEJA"]):
         target_class = DB.RoofType
+        target_bic = DB.BuiltInCategory.OST_Roofs
     else:
         return None
 
+    # 2. COLLECT ALL ELEMENTS OF THE CLASS (To check if it exists)
     collector = DB.FilteredElementCollector(doc).OfClass(target_class)
-    all_elements = list(collector)
+    all_of_class = list(collector)
 
-    # Check Existing
+    # 3. CHECK EXISTING
     existing = None
-    for e in all_elements:
+    for e in all_of_class:
         if get_safe_name(e).upper() == name_upper:
             existing = e
             print("   ✅ Found existing type.")
@@ -119,10 +134,21 @@ def get_or_create_type(doc, type_name):
     if existing:
         return existing
 
-    # Duplicate Donor
-    donor = next((e for e in all_elements if e.GetCompoundStructure()), None)
+    # 4. FIND DONOR MATCHING THE CATEGORY
+    donor = None
+    for e in all_of_class:
+        # Check strict Category Match to avoid cloning Floor as Foundation or vice versa
+        if e.Category and e.Category.Id.IntegerValue == int(target_bic):
+            if e.GetCompoundStructure():
+                donor = e
+                break
+
+    # Fallback (desperate measure if no specific donor found)
+    if not donor and all_of_class:
+        donor = next((e for e in all_of_class if e.GetCompoundStructure()), None)
+
     if not donor:
-        print("   ❌ CRITICAL: No donor found.")
+        print("   ❌ CRITICAL: No template found for category {}.".format(target_bic))
         return None
 
     try:
