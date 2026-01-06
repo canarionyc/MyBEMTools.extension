@@ -1,255 +1,207 @@
 # -*- coding: utf-8 -*-
-"""
-Create HULC Assemblies - OBSESSIVE LOGGER EDITION
-"""
-__title__ = "Create HULC\nAssemblies"
-__author__ = "BEM Tools"
-
+import sys
 import os
-import re
 import json
-import unicodedata
-from collections import defaultdict
+import ast
+import re
+import io  # <--- REQUIRED FOR ENCODING
+import clr
 
-# pyRevit imports
-from pyrevit import revit, forms, script
-import Autodesk.Revit.DB as DB
+# --- REVIT API SETUP ---
+clr.AddReference('RevitAPI')
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.DB import *
 
-# ============================================================================
-# 0. FORCE OUTPUT WINDOW OPEN
-# ============================================================================
+# --- FORCE OUTPUT WINDOW ---
+from pyrevit import script
+
 output = script.get_output()
-output.close()  # Clear previous
-output.show()  # FORCE SHOW
-print("--- INITIALIZING SCRIPT ---")
+output.close()
+output.show()
+
+# --- CONSTANTS ---
+JSON_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\wallcons.json"
 
 
-def log(msg):
-    """Unconditional printer."""
-    print(msg)
+# --- HELPER FUNCTIONS ---
+def meters_to_internal(val_m):
+    return UnitUtils.ConvertToInternalUnits(val_m, UnitTypeId.Meters)
 
 
-def log_step(step, msg):
-    print("\n[STEP {}] {}".format(step, msg))
+def clean_name(text):
+    """
+    Basic cleanup. Since we are now reading UTF-8 correctly,
+    we don't need to be as aggressive, but we still remove
+    Revit-forbidden characters.
+    """
+    if not text: return "Unnamed"
 
+    # 1. Strip forbidden chars
+    # \ : { } [ ] | ; < > ? ` ~
+    trans = {
+        "\\": "-", ":": "-", "{": "(", "}": ")", "[": "(", "]": ")",
+        "|": "-", ";": ",", "<": "inf", ">": "sup", "?": "",
+        "/": "-", "*": "x", "\"": "in", "\'": "ft"
+    }
+    for k, v in trans.items(): text = text.replace(k, v)
 
-def log_detail(key, val):
-    print("   > {}: {}".format(key, val))
-
-
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
-DEFAULT_JSON_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\bem_update_package.json"
-
-
-# ============================================================================
-# HELPER FUNCTIONS
-# ============================================================================
-def meters_to_internal(value_in_meters):
-    # Revit 2021+ Unit handling
-    return DB.UnitUtils.ConvertToInternalUnits(value_in_meters, DB.UnitTypeId.Meters)
-
-
-def sanitize_revit_name(text):
-    if not text: return "Unnamed_Material"
-    if not isinstance(text, unicode):
-        text = unicode(text, 'utf-8') if isinstance(text, str) else unicode(text)
-    nfkd = unicodedata.normalize('NFKD', text)
-    text = "".join([c for c in nfkd if not unicodedata.combining(c)])
-    translations = {"<": "inf", ">": "sup", "[": "(", "]": ")", "{": "(", "}": ")", "|": "-", ";": ",", "?": "",
-                    ":": "-", "/": "-"}
-    for char, rep in translations.items():
-        text = text.replace(char, rep)
+    # 2. Whitespace cleanup
     return " ".join(text.split())
 
 
-def process_hulc_name(raw_name):
-    if not raw_name: return "Material_Sin_Nombre"
-    clean = raw_name
-    pattern = r"([\d\.]+)\s*<\s*d\s*<\s*([\d\.]+)"
-    replacement = r"d entre \1 y \2"
-    clean = re.sub(pattern, replacement, clean)
-    return sanitize_revit_name(clean)
+def process_material_name(raw):
+    # HULC Fix: "d < 1000" -> "d entre..."
+    # (Using simple replacement to keep it safe)
+    s = str(raw)  # raw is now a proper unicode string thanks to io.open
+    s = re.sub(r"([\d\.]+)\s*<\s*d\s*<\s*([\d\.]+)", r"d \1-\2", s)
+    return clean_name(s)
 
 
-def get_material_id(doc, raw_name):
-    target_name = process_hulc_name(raw_name)
-    # log_detail("Looking for Material", target_name) # Very verbose
-    mat = DB.FilteredElementCollector(doc).OfClass(DB.Material) \
-        .Where(lambda m: m.Name == target_name).FirstElement()
-    if mat: return mat.Id
+# --- MAIN LOGIC ---
+def run():
+    doc = __revit__.ActiveUIDocument.Document
+    print("--- STARTING IMPORT ---")
+    print("File: " + JSON_PATH)
 
-    log_detail("WARNING", "Material NOT FOUND: '{}'".format(target_name))
-    return DB.ElementId.InvalidElementId
+    if not os.path.exists(JSON_PATH):
+        print("❌ CRITICAL: File not found.")
+        return
 
-
-def get_template_type(doc, category_name):
-    log_detail("Template Search", "Category: {}".format(category_name))
-
-    bic = None
-    if category_name == "OST_Walls":
-        bic = DB.BuiltInCategory.OST_Walls
-        sys_class = DB.WallType
-    elif category_name == "OST_Floors":
-        bic = DB.BuiltInCategory.OST_Floors
-        sys_class = DB.FloorType
-    elif category_name == "OST_Roofs":
-        bic = DB.BuiltInCategory.OST_Roofs
-        sys_class = DB.RoofType
-    elif category_name == "OST_StructuralFoundation":
-        bic = DB.BuiltInCategory.OST_StructuralFoundation
-        sys_class = DB.FloorType
-    else:
-        log_detail("ERROR", "Unknown Category: {}".format(category_name))
-        return None, None
-
-    col = DB.FilteredElementCollector(doc).OfCategory(bic).WhereElementIsElementType()
-    valid_types = [e for e in col if isinstance(e, sys_class)]
-
-    if not valid_types:
-        log_detail("ERROR", "No types found in project for category.")
-        return None, None
-
-    # Priority Search
-    for t in valid_types:
-        if "generic" in t.Name.lower() or "genérico" in t.Name.lower():
-            log_detail("Found Template", t.Name)
-            return t, sys_class
-
-    fallback = valid_types[0]
-    log_detail("Fallback Template", fallback.Name)
-    return fallback, sys_class
-
-
-# ============================================================================
-# MAIN
-# ============================================================================
-def main():
-    log_step(1, "CHECKING FILE PATH")
-    json_path = DEFAULT_JSON_PATH
-
-    if os.path.exists(json_path):
-        log_detail("Status", "File Found")
-        log_detail("Path", json_path)
-    else:
-        log_detail("Status", "FILE MISSING at default path")
-        json_path = forms.pick_file(file_ext='json', title="Select BEM Update Package")
-        if not json_path:
-            log("USER CANCELLED. EXITING.")
-            return
-
-    log_step(2, "READING JSON")
+    # --- 1. READ JSON WITH EXPLICIT ENCODING ---
     try:
-        with open(json_path, 'r') as f:
-            raw_data = json.load(f)
-        log_detail("Row Count", len(raw_data))
-        if len(raw_data) > 0:
-            log_detail("First Item Keys", raw_data[0].keys())
+        # io.open is crucial for IronPython to handle UTF-8 correctly
+        with io.open(JSON_PATH, 'r', encoding='utf-8') as f:
+            data = json.load(f)
     except Exception as e:
-        log("!!! FATAL ERROR READING JSON !!!")
-        log(str(e))
+        print("❌ CRITICAL: JSON Load Error (Encoding?): " + str(e))
         return
 
-    log_step(3, "GROUPING ASSEMBLIES")
-    assemblies = defaultdict(list)
-    for row in raw_data:
-        if 'assembly' in row:
-            assemblies[row['assembly']].append(row)
-        else:
-            log("SKIP: Row missing 'assembly' key")
+    print("Rows found: {}".format(len(data)))
 
-    log_detail("Unique Assemblies Found", len(assemblies))
-    if len(assemblies) == 0:
-        log("!!! NO ASSEMBLIES FOUND. EXITING. !!!")
-        return
-
-    log_step(4, "STARTING TRANSACTION")
-    doc = revit.doc
-    t = DB.Transaction(doc, "Create HULC Assemblies")
+    t = Transaction(doc, "Create HULC Assemblies")
     t.Start()
 
-    try:
-        count = 0
-        for asm_name, layers in assemblies.items():
-            print("-" * 50)
-            log("PROCESSING: {}".format(asm_name))
+    count_ok = 0
 
-            # 1. Category
-            cat_str = layers[0].get('revit_category', 'OST_Walls')
-            log_detail("Category", cat_str)
+    for i, row in enumerate(data):
+        try:
+            # Name should now be clean unicode
+            raw_name = row.get('name', 'Assembly_' + str(i))
+            asm_name = clean_name(raw_name)
 
-            # 2. Template
-            template, sys_class = get_template_type(doc, cat_str)
-            if not template:
-                log("SKIP: Could not find template.")
+            # --- CATEGORY ---
+            cat_str = row.get('revit_category', 'OST_Walls')
+            if cat_str == "OST_Walls":
+                bic, cls = BuiltInCategory.OST_Walls, WallType
+            elif cat_str == "OST_Floors":
+                bic, cls = BuiltInCategory.OST_Floors, FloorType
+            elif cat_str == "OST_Roofs":
+                bic, cls = BuiltInCategory.OST_Roofs, RoofType
+            elif cat_str == "OST_StructuralFoundation":
+                bic, cls = BuiltInCategory.OST_StructuralFoundation, FloorType
+            else:
+                print("Skipping unknown category: " + cat_str)
                 continue
 
-            # 3. Get/Create
+            # --- LAYERS ---
+            # ast.literal_eval handles the "['A','B']" strings
+            # We encode to str because ast sometimes dislikes unicode in Py2
+            try:
+                mat_str = str(row.get('material', '[]'))
+                thk_str = str(row.get('thickness', '[]'))
+                raw_mats = ast.literal_eval(mat_str)
+                raw_thks = ast.literal_eval(thk_str)
+            except Exception as e:
+                print("⚠️ List parse error on '{}': {}".format(asm_name, e))
+                continue
+
+            # --- GET/CREATE TYPE ---
+            col = FilteredElementCollector(doc).OfCategory(bic).WhereElementIsElementType()
             target_type = None
-            col = DB.FilteredElementCollector(doc).OfClass(sys_class)
+
+            # 1. Exact Match
             for e in col:
                 if e.Name == asm_name:
                     target_type = e
-                    log_detail("Action", "Updating existing type")
                     break
 
+            # 2. Duplicate
             if not target_type:
-                try:
-                    target_type = template.Duplicate(asm_name)
-                    log_detail("Action", "Created NEW type")
-                except Exception as e:
-                    log_detail("ERROR", "Duplicate failed: " + str(e))
+                # Find Template
+                template = None
+                for e in col:
+                    if isinstance(e, cls):
+                        if cls == WallType and e.Kind != WallKind.Basic: continue
+                        if "generic" in e.Name.lower() or "generico" in e.Name.lower():
+                            template = e
+                            break
+                if not template:
+                    # Fallback
+                    for e in col:
+                        if isinstance(e, cls):
+                            if cls == WallType and e.Kind != WallKind.Basic: continue
+                            template = e
+                            break
+
+                if not template:
+                    print("❌ No template for: " + asm_name)
                     continue
 
-            # 4. Layers
-            try:
-                # Dummy start
-                dummy_w = meters_to_internal(0.1)
-                cs = DB.CompoundStructure.CreateSingleLayerCompoundStructure(
-                    dummy_w, DB.MaterialFunctionAssignment.Structure, DB.ElementId.InvalidElementId
-                )
+                try:
+                    target_type = template.Duplicate(asm_name)
+                except Exception as e_dup:
+                    print("⚠️ Name collision '{}'. Retrying with suffix...".format(asm_name))
+                    target_type = template.Duplicate(asm_name + "_Import")
 
-                new_layers = []
-                log_detail("Layers to build", len(layers))
+            # --- BUILD STRUCTURE ---
+            dummy_w = meters_to_internal(0.1)
+            cs = CompoundStructure.CreateSingleLayerCompoundStructure(
+                dummy_w, MaterialFunctionAssignment.Structure, ElementId.InvalidElementId
+            )
 
-                for i, layer in enumerate(layers):
-                    th_m = layer.get('thickness', 0.1)
-                    mat_name = layer.get('material_name', 'Unknown')
+            new_layers = []
+            for m_raw, t_raw in zip(raw_mats, raw_thks):
+                th_m = float(t_raw)
+                if th_m < 0.002: th_m = 0.002
+                w_int = meters_to_internal(th_m)
 
-                    if th_m < 0.001: th_m = 0.001
+                # Process Material Name
+                mat_clean = process_material_name(m_raw)
+                mat_id = ElementId.InvalidElementId
 
-                    # Convert
-                    w_int = meters_to_internal(th_m)
-                    m_id = get_material_id(doc, mat_name)
+                # Find Material (Name Search)
+                mat_col = FilteredElementCollector(doc).OfClass(Material)
+                for m in mat_col:
+                    if m.Name == mat_clean:
+                        mat_id = m.Id
+                        break
 
-                    # Log if invalid
-                    if m_id == DB.ElementId.InvalidElementId:
-                        log("   ! Layer {}: Material '{}' invalid.".format(i, mat_name))
+                # If not found exact, try relaxed search
+                if mat_id == ElementId.InvalidElementId:
+                    for m in mat_col:
+                        if mat_clean in m.Name:  # Substring match
+                            mat_id = m.Id
+                            break
 
-                    cs_layer = DB.CompoundStructureLayer(w_int, DB.MaterialFunctionAssignment.Structure, m_id)
-                    new_layers.append(cs_layer)
+                lyr = CompoundStructureLayer(w_int, MaterialFunctionAssignment.Structure, mat_id)
+                new_layers.append(lyr)
 
-                cs.SetLayers(new_layers)
-                target_type.SetCompoundStructure(cs)
-                log("   > Structure Updated.")
-                count += 1
+            cs.SetLayers(new_layers)
+            target_type.SetCompoundStructure(cs)
 
-            except Exception as e:
-                log("   !!! ERROR SETTING LAYERS: " + str(e))
+            # Tag
+            p = target_type.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION)
+            if p: p.Set("HULC Import")
 
-        log_step(5, "FINISHING")
-        t.Commit()
-        log("TRANSACTION COMMITTED.")
-        log("TOTAL PROCESSED: {}".format(count))
+            count_ok += 1
+            print("OK: " + asm_name)
 
-        output.center()  # Keep window open
+        except Exception as inner_e:
+            print("❌ Error processing {}: {}".format(row.get('name'), inner_e))
 
-    except Exception as e:
-        t.RollBack()
-        log("!!! CRITICAL TRANSACTION FAILURE !!!")
-        log(str(e))
+    t.Commit()
+    print("-" * 30)
+    print("FINISHED. Processed: {}".format(count_ok))
 
 
-if __name__ == "__main__":
-    main()
+run()

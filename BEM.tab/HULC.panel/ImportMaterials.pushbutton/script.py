@@ -1,197 +1,264 @@
 # -*- coding: utf-8 -*-
 """
-Imports HULC materials from a JSON file.
-Style: Uses the Output Window for the final report (Copy-Paste friendly).
+Import HULC Materials (Nuclear Option)
+1. Auto-detects encoding (UTF-8 vs Windows-1252) to fix "métrico" errors.
+2. Silences "Duplicate Mark" warnings automatically.
+3. Sets full Thermal Assets.
 """
-__title__ = "Import HULC\nMaterials"
-__author__ = "BEM Tools"
-
+import sys
 import os
 import re
 import json
-import unicodedata
+import io
+import clr
 
-# pyRevit libraries
-from pyrevit import revit, forms, script
+# --- REVIT API SETUP ---
+clr.AddReference('RevitAPI')
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.UI import TaskDialog
 
-# Revit API imports
-import Autodesk.Revit.DB as DB
-
-# ============================================================================
-# SETUP OUTPUT WINDOW
-# ============================================================================
-output = script.get_output()
-output.close()  # Close any previous windows
-output.show()  # Force the window to appear immediately
-output.set_title("HULC Import Report")
-
-
-def log(msg):
-    """Prints message to the output window."""
-    print(msg)
-
-
-def log_action(action, details):
-    """Formatted action logger."""
-    print("   [{}] {}".format(action, details))
+# --- CONFIGURATION ---
+JSON_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\materials.json"
 
 
 # ============================================================================
-# SAFE PARAMETER MAPPING
+# 1. WARNING SWALLOWER (Fixes "Duplicate Mark" spam)
 # ============================================================================
-class SafeBIP:
-    @staticmethod
-    def get(name, integer_id):
+class WarningSwallower(IFailuresPreprocessor):
+    def PreprocessFailures(self, failuresAccessor):
+        # Get all warnings
+        failures = failuresAccessor.GetFailureMessages()
+        for f in failures:
+            # Check if it's a "Duplicate Value" warning (standard for Marks)
+            # We treat it as a Warning, not an Error, so we can just delete it.
+            id = f.GetFailureDefinitionId()
+            if BuiltInFailures.GeneralFailures.DuplicateValue == id:
+                failuresAccessor.DeleteWarning(f)
+        return FailureProcessingResult.Continue
+
+
+# ============================================================================
+# 2. ROBUST DECODING (Fixes "unknown codec 0xe9")
+# ============================================================================
+def safe_decode(text):
+    """
+    Tries to convert text to Unicode.
+    1. If it's already unicode, return it.
+    2. Try UTF-8.
+    3. If that fails (byte 0xE9), try CP1252 (Windows Standard).
+    """
+    if not text: return u""
+    if isinstance(text, unicode): return text
+
+    # It's a bytestring, let's try to decode it
+    try:
+        return text.decode('utf-8')
+    except UnicodeDecodeError:
         try:
-            return getattr(DB.BuiltInParameter, name)
-        except AttributeError:
-            return DB.BuiltInParameter(integer_id)
-
-
-BIP_CLASS = SafeBIP.get("MATERIAL_PARAM_CLASS", -1002101)
-BIP_DESCRIPTION = SafeBIP.get("ALL_MODEL_DESCRIPTION", -1001202)
-BIP_COMMENTS = SafeBIP.get("ALL_MODEL_INSTANCE_COMMENTS", -1001205)
-BIP_MODEL = SafeBIP.get("ALL_MODEL_MODEL", -1001203)
+            # 0xE9 implies Windows-1252 (Western European)
+            return text.decode('cp1252')
+        except:
+            # Last resort: ignore garbage
+            return text.decode('utf-8', 'ignore')
 
 
 # ============================================================================
-# LOGIC
+# 3. HELPER FUNCTIONS
 # ============================================================================
-def sanitize_revit_name(text):
-    if not text: return "Unnamed_Material"
-    if not isinstance(text, unicode):
-        text = unicode(text, 'utf-8') if isinstance(text, str) else unicode(text)
+def alert(title, msg):
+    try:
+        TaskDialog.Show(title, msg)
+    except:
+        # Fallback if msg has weird chars
+        TaskDialog.Show(title, "Script Finished (Message contains complex chars)")
 
-    nfkd_form = unicodedata.normalize('NFKD', text)
-    text = "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
-    translations = {
-        "<": "inf", ">": "sup", "[": "(", "]": ")",
-        "{": "(", "}": ")", "|": "-", ";": ",",
-        "?": "", ":": "-", "/": "-"
+def to_internal(value, unit_type):
+    # SI -> Imperial conversion
+    if unit_type == "density":
+        return value * 0.06242796  # kg/m3 -> lb/ft3
+    elif unit_type == "conductivity":
+        return value * 0.577789  # W/mK -> BTU/h-ft-F
+    elif unit_type == "specific_heat":
+        return value * 0.0002388459  # J/kgK -> BTU/lb-F
+    return value
+
+
+def clean_name(text):
+    # Ensure it's unicode first
+    text = safe_decode(text)
+
+    # Remove Revit-illegal chars
+    forbidden = {
+        u"<": u"inf", u">": u"sup",
+        u"[": u"(", u"]": u")",
+        u"{": u"(", u"}": u")",
+        u"|": u"-", u"\\": u"-", u"/": u"-",
+        u":": u"-", u";": u",",
+        u"*": u"x", u"?": u""
     }
-    for char, replacement in translations.items():
-        text = text.replace(char, replacement)
+    for char, rep in forbidden.items():
+        text = text.replace(char, rep)
 
-    return " ".join(text.split())
+    return u" ".join(text.split())
 
 
 def process_hulc_name(raw_name):
-    if not raw_name: return "Material_Sin_Nombre"
-    clean = raw_name
-    pattern = r"([\d\.]+)\s*<\s*d\s*<\s*([\d\.]+)"
+    s = safe_decode(raw_name)
+    # Regex for "100 < d < 200"
+    pattern = r"(\d+(?:\.\d+)?)\s*<\s*d\s*<\s*(\d+(?:\.\d+)?)"
     replacement = r"d entre \1 y \2"
-    clean = re.sub(pattern, replacement, clean)
-    return sanitize_revit_name(clean)
+    clean = re.sub(pattern, replacement, s)
+    return clean_name(clean)
 
 
-def get_or_create_material(doc, name, local_cache):
-    name_lower = name.lower().strip()
+def set_thermal_properties(doc, material, k, d, cp):
+    # Use IDs to avoid "AttributeError"
+    # THERMAL_MATERIAL_CONDUCTIVITY = -1001301
+    # THERMAL_MATERIAL_DENSITY = -1001300
+    # THERMAL_MATERIAL_SPECIFIC_HEAT = -1001302
 
-    # 1. CHECK LOCAL CACHE
-    if name_lower in local_cache:
-        log_action("CACHE", "Found '{}' in local cache.".format(name))
-        return local_cache[name_lower]
+    therm_asset_id = material.ThermalAssetId
 
-    # 2. CHECK REVIT DB
-    collector = DB.FilteredElementCollector(doc).OfClass(DB.Material)
-    for mat in collector:
-        if mat.Name.lower().strip() == name_lower:
-            log_action("FOUND", "Found existing '{}' in Revit.".format(mat.Name))
-            local_cache[name_lower] = mat
-            return mat
+    if therm_asset_id == ElementId.InvalidElementId:
+        try:
+            pse = PropertySetElement.Create(doc, MaterialAspect.Thermal, u"Thermal_" + material.Name)
+            material.ThermalAssetId = pse.Id
+            therm_asset = pse
+        except:
+            return False
+    else:
+        therm_asset = doc.GetElement(therm_asset_id)
 
-    # 3. CREATE NEW
-    try:
-        log_action("CREATE", "Creating NEW material: '{}'".format(name))
-        new_id = DB.Material.Create(doc, name)
-        new_mat = doc.GetElement(new_id)
-        local_cache[name_lower] = new_mat
-        return new_mat
-    except Exception as e:
-        if "in use" in str(e) or "exist" in str(e):
-            log_action("WARN", "Name collision. Retrying fetch...")
-            check_again = DB.FilteredElementCollector(doc).OfClass(DB.Material) \
-                .Where(lambda m: m.Name == name).FirstElement()
-            if check_again:
-                local_cache[name_lower] = check_again
-                return check_again
-        raise e
+    if not therm_asset: return False
 
+    p_cond = therm_asset.get_Parameter(BuiltInParameter(-1001301))
+    if p_cond: p_cond.Set(to_internal(float(k), "conductivity"))
 
-def set_param(elem, bip, value):
-    p = elem.get_Parameter(bip)
-    if p and value is not None:
-        p.Set(str(value))
+    p_dens = therm_asset.get_Parameter(BuiltInParameter(-1001300))
+    if p_dens: p_dens.Set(to_internal(float(d), "density"))
+
+    p_cp = therm_asset.get_Parameter(BuiltInParameter(-1001302))
+    if p_cp: p_cp.Set(to_internal(float(cp), "specific_heat"))
+
+    return True
 
 
 # ============================================================================
-# MAIN EXECUTION
+# 4. MAIN EXECUTION
 # ============================================================================
-DEFAULT_JSON_PATH = r"C:\ProyectosCTEyCEE\CTEHE2019\Proyectos\EjemploI_2526_Option1_Config1\output\materials.json"
-json_path = DEFAULT_JSON_PATH
+def run():
+    doc = __revit__.ActiveUIDocument.Document
 
-if not os.path.exists(json_path):
-    json_path = forms.pick_file(file_ext='json', title="Select HULC Materials JSON")
+    if not os.path.exists(JSON_PATH):
+        alert("Error", "File not found: " + JSON_PATH)
+        return
 
-if json_path:
-    # Read Data
+    # 1. READ JSON (Hybrid approach)
+    # We read as binary, then decode the JSON string manually to handle mixed encodings
     try:
-        with open(json_path, 'r') as f:
-            data = json.load(f)
+        with open(JSON_PATH, 'rb') as f:
+            raw_bytes = f.read()
+
+        # Try UTF-8 first
+        try:
+            json_str = raw_bytes.decode('utf-8')
+        except UnicodeDecodeError:
+            # Fallback to Windows-1252
+            json_str = raw_bytes.decode('cp1252')
+
+        data = json.loads(json_str)
+
     except Exception as e:
-        log("CRITICAL ERROR: Failed to read JSON file.")
-        log(str(e))
-        data = None
+        alert("Read Error", "Could not parse JSON.\n" + str(e))
+        return
 
-    if data:
-        doc = revit.doc
-        material_cache = {}
+    # 2. TRANSACTION WITH SWALLOWER
+    t = Transaction(doc, "Import HULC Materials")
 
-        log("========================================")
-        log("STARTING MATERIAL IMPORT")
-        log("File: {}".format(os.path.basename(json_path)))
-        log("Items to Process: {}".format(len(data)))
-        log("========================================")
+    # Setup Warning Swallower
+    options = t.GetFailureHandlingOptions()
+    swallower = WarningSwallower()
+    options.SetFailuresPreprocessor(swallower)
+    t.SetFailureHandlingOptions(options)
 
-        t = DB.Transaction(doc, "Import HULC Materials")
-        t.Start()
+    t.Start()
+
+    count = 0
+    errors = []
+    material_cache = {}
+
+    for item in data:
+        # We assume 'item' dict keys/values are now proper unicode
+        raw_name = item.get('name', 'Unnamed')
 
         try:
-            count = 0
-            for i, item in enumerate(data):
-                raw_name = item.get('name', 'Unnamed')
-                log("\n[{}/{}] Processing: {}".format(i + 1, len(data), raw_name))
+            # Process Name
+            final_name = process_hulc_name(raw_name)
 
-                final_name = process_hulc_name(raw_name)
+            # Find/Create
+            mat = None
+            if final_name.lower() in material_cache:
+                mat = material_cache[final_name.lower()]
+            else:
+                col = FilteredElementCollector(doc).OfClass(Material)
+                for m in col:
+                    if m.Name == final_name:
+                        mat = m
+                        break
+                if not mat:
+                    try:
+                        new_id = Material.Create(doc, final_name)
+                        mat = doc.GetElement(new_id)
+                    except:
+                        # Collision fallback
+                        final_name = final_name + u"_Imp"
+                        new_id = Material.Create(doc, final_name)
+                        mat = doc.GetElement(new_id)
 
-                mat = get_or_create_material(doc, final_name, material_cache)
+                if mat: material_cache[final_name.lower()] = mat
 
+            # Properties
+            if mat:
+                # Identity Data
                 mat_group = item.get('material_group', 'General')
-                k_val = item.get('conductivity', 0.0)
-                d_val = item.get('density', 0)
-                cp_val = item.get('specificheat', 0)
+                k = item.get('conductivity', 0.0)
+                d = item.get('density', 0.0)
+                cp = item.get('specificheat', 0.0)
 
-                set_param(mat, BIP_CLASS, mat_group)
-                set_param(mat, BIP_DESCRIPTION, "HULC Import | Density: {} kg/m3".format(d_val))
-                set_param(mat, BIP_COMMENTS, "Cp: {} J/kgK".format(cp_val))
-                set_param(mat, BIP_MODEL, k_val)
+                # Set Identity Parameters (IDs)
+                p_class = mat.get_Parameter(BuiltInParameter(-1002101))
+                if p_class: p_class.Set(safe_decode(mat_group))
+
+                p_desc = mat.get_Parameter(BuiltInParameter(-1001202))
+                if p_desc: p_desc.Set(u"Density: {} kg/m3".format(d))
+
+                p_model = mat.get_Parameter(BuiltInParameter(-1001203))
+                if p_model: p_model.Set(str(k))
+
+                # Set Thermal Asset
+                if k > 0:
+                    set_thermal_properties(doc, mat, k, d, cp)
 
                 count += 1
 
-            t.Commit()
-
-            # FINAL REPORT (No pop-up, just big text)
-            log("\n" + "=" * 40)
-            log("SUCCESS: Processed {} materials.".format(count))
-            log("=" * 40)
-
-            # This line ensures the output window stays active
-            output.center()
-
         except Exception as e:
-            t.RollBack()
-            log("\n" + "!" * 40)
-            log("CRITICAL ERROR - TRANSACTION ROLLED BACK")
-            log(str(e))
-            log("!" * 40)
+            # Handle error reporting gracefully
+            err_msg = u"{} -> {}".format(raw_name, str(e))
+            errors.append(err_msg)
+
+    t.Commit()
+
+    # Report
+    msg = u"Success: {}\nErrors: {}".format(count, len(errors))
+    if errors:
+        msg += u"\n\nFirst 3 Errors:\n" + u"\n".join(errors[:3])
+
+    alert("Import Complete", msg)
+
+
+try:
+    run()
+except Exception as e:
+    alert("Critical Fail", str(e))
