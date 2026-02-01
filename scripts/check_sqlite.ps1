@@ -1,0 +1,1 @@
+find C:\repos\pyRevit-Master -type f -name "sqlite3.dll"
