@@ -4,7 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "../../bat"
+			"path": "../../bat/Autodesk/Revit"
+		},
+		{
+			"path": "../../Users/tglla/AppData/Roaming/Code"
 		}
 	],
 	"settings": {}
