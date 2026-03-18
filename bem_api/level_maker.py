@@ -1,27 +1,25 @@
-from Autodesk.Revit.DB import Level
+from Autodesk.Revit.DB import Level, UnitUtils, UnitTypeId
 from pyrevit import revit
 
-# 'doc', 'data', and 'result' are injected into this script's memory by startup.py
-
-# 1. Get our array of levels from the incoming Thunder Client payload
-levels_data = data.get('levels', []) 
+levels_data = data.get('levels', [])
 created_count = 0
 
-# 2. Open the pyRevit Context Manager Transaction
-with revit.Transaction("BEM: Create Levels"):
+with revit.Transaction("BEM: Create Metric Levels"):
     
     for lev in levels_data:
         name = lev.get('name', 'Unnamed Level')
         
-        # Ensure the elevation is a float. (Remember: Revit API expects FEET!)
-        elevation = float(lev.get('elevation', 0.0))
+        # 1. Grab the metric elevation from your payload (e.g., 3.0 meters)
+        elevation_m = float(lev.get('elevation', 0.0))
         
-        # Create the level and assign the name
-        new_level = Level.Create(doc, elevation) 
+        # 2. Convert Meters to Internal Units (Feet) using Revit 2025 syntax
+        elevation_internal = UnitUtils.ConvertToInternalUnits(elevation_m, UnitTypeId.Meters)
+        
+        # 3. Feed the internal feet value to the API
+        new_level = Level.Create(doc, elevation_internal)
         new_level.Name = name
         created_count += 1
 
-# 3. Populate the 'result' dictionary to send back to Thunder Client
 result['status'] = 'Success'
-result['message'] = 'Created ' + str(created_count) + ' levels.'
-result['project'] = data.get('project_name', 'Unknown') 
+result['message'] = 'Created {} metric levels.'.format(created_count)
+result['project'] = doc.Title
