@@ -1,6 +1,7 @@
 title: "BEM"
 layout:
   - Setup
+  - Geometry
   - Model
   - Materials
   - Families

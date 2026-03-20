@@ -1,0 +1,6 @@
+{
+  "script": "walls = FilteredElementCollector(doc).OfClass(Wall).GetElementCount()\nfloors = FilteredElementCollector(doc).OfClass(Floor).GetElementCount()\nresult['wall_count'] = walls\nresult['floor_count'] = floors\nresult['message'] = 'Hello from Thunder Client!'",
+  "data": {
+    "project_name": "Test Project"
+  }
+}

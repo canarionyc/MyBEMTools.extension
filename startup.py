@@ -1,15 +1,17 @@
+
+#%% setup
 import sys
 import os
 import threading
 import logging
 from pyrevit import routes
-
+#%% Revit-specific imports
 import clr
 clr.AddReference('RevitAPI')
 clr.AddReference('RevitAPIUI')
 from Autodesk.Revit.UI import IExternalEventHandler, ExternalEvent
 
-# --- SET UP LOGGING (IP27 & APPDATA Compatible) ---
+#%% --- SET UP LOGGING (IP27 & APPDATA Compatible) ---
 appdata = os.environ.get('APPDATA', '')
 default_log_dir = os.path.join(appdata, 'BEM_API')
 log_dir = os.environ.get('BEM_API_LOGDIR', default_log_dir)
@@ -26,8 +28,7 @@ logging.basicConfig(
     format='%(asctime)s | %(levelname)s | %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
-# --------------------------------------------------
-
+#%% --- MAIN THREAD EXECUTOR CLASS ---
 class MainThreadExecutor(IExternalEventHandler):
     def __init__(self):
         self.script_string = ""
