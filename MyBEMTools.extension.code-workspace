@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "../../Users/tglla/AppData/Roaming/Code"
+		},
+		{
+			"path": "../../Users/tglla/AppData/Roaming/BEM_API"
+		},
+		{
+			"path": "../computer-vision-testing"
 		}
 	],
 	"settings": {}

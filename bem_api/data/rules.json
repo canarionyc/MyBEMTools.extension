@@ -1,0 +1,65 @@
+{
+  "schema": {
+    "thickness": "Thickness of the wall in millimeters.",
+    "location_line": "Revit wall location line (e.g., WallCenterline, FinishFaceInterior, FinishFaceExterior).",
+    "top_constraint": "Determines how the top of the wall behaves (NextLevel or Unconnected).",
+    "top_level": "Explicit override for the top level (must match a valid level name).",
+    "unconnected_height": "Explicit height in millimeters if top_constraint is Unconnected.",
+    "top_offset": "Vertical offset from the top constraint in millimeters.",
+    "family_name": "The exact name of the target Revit family type.",
+    "is_floor": "Boolean (true/false) flag to tell Revit this is a floor, not a wall.",
+    "floor_type": "The exact name of the target Revit Floor family type.",
+    "debug_flag": "0/1 for debug",
+    "base_offset": "closet slabs height"
+  },
+  "levels": {
+    "LVL00_JARDIN_O_CALLE": { "elevation": -340.0 },
+    "LVL10_TERRAZA_Y_PORCHE": { "elevation": -170.0 },
+    "LVL20_INTERIOR_VIVIENDA": { "elevation": 0.0 },
+    "LVL30_PISO_CUBIERTA": { "elevation": 3060.0 },
+    "LVL40_RECRECIDO_CUBIERTA": { "elevation": 3210.0 }
+  },
+  "types": {
+    "BEM-WALLS-EXT": {
+      "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+      "thickness": 200.0,
+      "location_line": "WallCenterline",
+      "top_constraint": "NextLevel"
+    },
+    "BEM-WALLS-INT": {
+      "family_name": "Tabique - 10 cm",
+      "thickness": 100.0,
+      "location_line": "WallCenterline",
+      "top_constraint": "NextLevel"
+    },
+    "Planter_Box": {
+      "family_name": "Tabique - 10 cm",
+      "thickness": 100.0,
+      "location_line": "WallCenterline",
+      "top_constraint": "Unconnected",
+      "unconnected_height": 600.0
+    },
+    "Roof_Parapet": {
+      "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+      "thickness": 200.0,
+      "location_line": "WallCenterline",
+      "top_constraint": "Unconnected",
+      "top_offset": 340.0
+    },
+    "BEM-FLOORS-EXT": {
+      "is_floor": true,
+      "floor_type": "Suelo por defecto - 170 mm",
+      "thickness": 170.0
+    },
+    "BEM-FLOORS-INT": {
+      "is_floor": true,
+      "floor_type": "Suelo por defecto - 100 mm",
+      "thickness": 100.0
+    },
+    "BEM-FLOORS-ROOF": {
+      "is_floor": true,
+      "floor_type": "Cubierta plana no transitable - 350 mm",
+      "thickness": 350.0
+    }
+  }
+}

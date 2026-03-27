@@ -1,0 +1,11 @@
+# Rhino
+
+mtllib sample_wall.mtl
+usemtl Default
+v 100 0 -6800
+v 100 0 -1100
+cstype bspline
+deg 1
+curv -3 -2 1 2
+parm u -3 -3 -2 -2
+end

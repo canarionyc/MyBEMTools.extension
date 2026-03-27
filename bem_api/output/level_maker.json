@@ -1,0 +1,7 @@
+{
+  "script_path": "C:/DEV/MYBEMTOOLS.EXTENSION/bem_api/scripts/level_maker.py",
+  "data": {
+    "project_name": "BEM-2026-Setup",
+    "csv_path": "C:/dev/MyBEMTools.extension/bem_api/data/levels.csv"
+  }
+}

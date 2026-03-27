@@ -1,3 +1,6 @@
 title: "Families"
 layout:
+  - SQLiteFamilyAuditor
+  - ImportFromHULC
+  - BEMFamilyAuditor
   - SQLiteConstructiveSolutionAuditor

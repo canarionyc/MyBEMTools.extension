@@ -1,0 +1,15 @@
+{
+  "levels": [
+    "LVL00_JARDIN_O_CALLE",
+    "LVL01_TERRAZA_Y_PORCHE",
+    "LVL02_INTERIOR_VIVIENDA",
+    "LVL03_PISO_CUBIERTA",
+    "LVL04_RECRECIDO_CUBIERTA"
+  ],
+  "categories": [
+    { "name": "BEM-WALLS-EXT", "color": [50, 50, 50] },
+    { "name": "BEM-WALLS-INT", "color": [150, 150, 150] },
+    { "name": "BEM-DOORS", "color": [255, 100, 100] },
+    { "name": "BEM-WINDOWS", "color": [100, 200, 255] }
+  ]
+}
