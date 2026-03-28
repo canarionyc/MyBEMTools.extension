@@ -60,6 +60,11 @@
       "is_floor": true,
       "floor_type": "Cubierta plana no transitable - 350 mm",
       "thickness": 350.0
+    },
+    "BEM-FOUNDATION-SLAB": {
+      "is_floor": true,
+      "floor_type": "Foundation Slab",
+      "thickness": 350.0
     }
   }
 }
