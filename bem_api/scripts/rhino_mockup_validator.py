@@ -2,28 +2,27 @@
 import rhinoscriptsyntax as rs
 import json
 import os
-import hashlib # NEW: Used for generating colors from text
+import hashlib
 
 # --- PATHS ---
 PAYLOAD_PATH = r"C:\dev\MyBEMTools.extension\bem_api\output\payload.json"
 RULES_PATH = r"C:\dev\MyBEMTools.extension\bem_api\data\rules.json"
 
 def get_type_color(type_name):
-    """Generates a consistent, bright RGB color based on the family or floor name."""
-    if not type_name:
-        return (150, 150, 150) # Fallback gray
-        
-    # Convert text to a unique hexadecimal number
+    if not type_name: return (150, 150, 150)
     m = hashlib.md5(type_name.encode('utf-8'))
     h = m.hexdigest()
-    
-    # Use parts of the hex to create RGB values
-    # We use % 156 + 100 to ensure the colors stay bright and visible!
     r = (int(h[0:2], 16) % 156) + 100
     g = (int(h[2:4], 16) % 156) + 100
     b = (int(h[4:6], 16) % 156) + 100
-    
     return (r, g, b)
+
+def apply_attributes_to_solid(solid_id, item_dict):
+    """Copies all text/number attributes from the JSON payload to the 3D solid."""
+    for key, value in item_dict.items():
+        # Skip complex data structures like coordinates lists
+        if isinstance(value, (str, int, float, bool)):
+            rs.SetUserText(solid_id, key, str(value))
 
 def generate_mockup():
     print("--- STARTING 3D BEM VALIDATION ---")
@@ -32,161 +31,102 @@ def generate_mockup():
         print("❌ Error: Could not find payload.json or rules.json.")
         return
 
-    # 1. Load data
-    with open(PAYLOAD_PATH, 'r', encoding='utf-8') as f:
-        payload = json.load(f)
-    with open(RULES_PATH, 'r', encoding='utf-8') as f:
-        master_data = json.load(f)
+    with open(PAYLOAD_PATH, 'r', encoding='utf-8') as f: payload_dict = json.load(f)
+    with open(RULES_PATH, 'r', encoding='utf-8') as f: master_data = json.load(f)
+
+    # NEW FIX: Flatten the level-keyed dictionary into a single list of objects
+    payload = []
+    for level_items in payload_dict.values():
+        payload.extend(level_items)
 
     levels_dict = master_data.get("levels", {})
     rules = master_data.get("types", {})
+    sorted_levels = sorted([(name, data.get("elevation", 0.0)) for name, data in levels_dict.items()], key=lambda x: x[1])
 
-    # Sort levels by elevation
-    sorted_levels = sorted(
-        [(name, data.get("elevation", 0.0)) for name, data in levels_dict.items()],
-        key=lambda x: x[1]
-    )
+    # POINT 4 FIX: Capture the current layer before we do anything
+    original_layer = rs.CurrentLayer()
 
-    # 2. Setup and CLEAR the mockup layer
     mockup_layer = "BEM-VALIDATION-MOCKUP"
     if rs.IsLayer(mockup_layer):
         existing_objs = rs.ObjectsByLayer(mockup_layer)
-        if existing_objs:
-            rs.DeleteObjects(existing_objs)
+        if existing_objs: rs.DeleteObjects(existing_objs)
     else:
-        # Layer itself is gray, but objects will override it
         rs.AddLayer(mockup_layer, color=(100, 100, 100))
         
     rs.CurrentLayer(mockup_layer)
-
-    print(f"🏗️ Generating solids for {len(payload)} BEM elements...\n")
     rs.EnableRedraw(False)
 
-    # 3. Process each payload item
     for i, item in enumerate(payload):
-        debug_flag = item.get("debug_flag")
-        print(f"Got {debug_flag}")
-        if debug_flag == 1:
-            print("here")
-
         coords = item.get("coordinates", [])
         category = item.get("category", "")
         payload_level = item.get("level", "")
         
-        print(f"\n▶️ Processing {i+1}/{len(payload)} [{category}] on {payload_level}")
-        
-        if len(coords) < 2:
-            continue
-
+        if len(coords) < 2: continue
         rule = rules.get(category)
-        if not rule:
-            print(f"   ⚠️ Skipped: Category '{category}' not found in rules.json.")
-            continue
+        if not rule: continue
 
-        # --- A. FIND BASE ELEVATION ---
         base_z = None
         current_level_index = -1
-        
         for idx, (lvl_name, z_val) in enumerate(sorted_levels):
             if lvl_name == payload_level:
                 base_z = z_val
                 current_level_index = idx
                 break
                 
-        if base_z is None:
-            continue
+        if base_z is None: continue
 
-        # --- B. APPLY BASE OFFSET ---
         base_offset = float(item.get("base_offset", rule.get("base_offset", 0.0)))
         base_z += base_offset
-        if base_offset != 0.0:
-            print(f"   - Applied Base Offset: {base_offset}mm")
-
-        
+        thickness = float(rule.get("thickness", 200.0))
         pts = [rs.coerce3dpoint([pt[0], pt[1], base_z]) for pt in coords]
 
-        # ==========================================
-        # FORK IN LOGIC: FLOOR vs WALL
-        # ==========================================
         if rule.get("is_floor"):
-            
-            # Extract the specific floor type to generate its color
             type_name = item.get("floor_type", rule.get("floor_type", "Default Floor"))
-            if type_name == "Foundation Slab":
-                print(type_name)
-
-            type_color = get_type_color(type_name)
-            
-            print(f"   - Element Type: FLOOR | {type_name}")
-            
-            if rs.Distance(pts[0], pts[-1]) > 0.1:
-                pts.append(pts[0])
-                
+            if rs.Distance(pts[0], pts[-1]) > 0.1: pts.append(pts[0])
             base_crv = rs.AddPolyline(pts)
             if not base_crv: continue
-            thickness = float(rule.get("thickness", 200.0))    
+                
             path_line = rs.AddLine((0, 0, base_z), (0, 0, base_z - thickness))
             extrusion = rs.ExtrudeCurve(base_crv, path_line)
             
             if extrusion:
-                # CapPlanarHoles modifies the object IN PLACE (returns True/False)
                 rs.CapPlanarHoles(extrusion)
-                
-                # Because it was capped in place, the ID 'extrusion' is still valid!
                 rs.ObjectLayer(extrusion, mockup_layer)
-                rs.ObjectColor(extrusion, type_color) # APPLY COLOR
+                rs.ObjectColor(extrusion, get_type_color(type_name))
+                # POINT 3 FIX: Apply attributes
+                apply_attributes_to_solid(extrusion, item)
             
             rs.DeleteObject(path_line)
             rs.DeleteObject(base_crv)
             
         else:
-            # --- WALL LOGIC ---
-            # Extract the specific wall family to generate its color
             type_name = item.get("family_name", rule.get("family_name", "Default Wall"))
-            type_color = get_type_color(type_name)
-            
             height = 3000.0
             top_z = None
             explicit_top = item.get("top_level") 
             
             if explicit_top:
                 for lvl_name, z_val in sorted_levels:
-                    if lvl_name == explicit_top:
-                        top_z = z_val
-                        break
-                if top_z is not None:
-                    height = top_z - base_z
+                    if lvl_name == explicit_top: top_z = z_val; break
+                if top_z is not None: height = top_z - base_z
             
-            # Default Rule Logic
             if not explicit_top or top_z is None:
                 top_constraint = rule.get("top_constraint", "NextLevel")
                 if top_constraint == "Unconnected":
                     height = float(rule.get("unconnected_height", 3000.0))
-                elif top_constraint == "NextLevel":
-                    if current_level_index + 1 < len(sorted_levels):
-                        height = sorted_levels[current_level_index + 1][1] - base_z
+                elif top_constraint == "NextLevel" and current_level_index + 1 < len(sorted_levels):
+                    height = sorted_levels[current_level_index + 1][1] - base_z
             
-            # Apply Top Offset
-            top_offset = item.get("top_offset", rule.get("top_offset", 0.0))
-            if top_offset:
-                height += float(top_offset)
-                
-            print("   - Element Type: WALL")
-            print(f"   - Base Z: {base_z}mm | Height: {height}mm")
+            top_offset = float(item.get("top_offset", rule.get("top_offset", 0.0)))
+            height += top_offset
 
-            if len(pts) == 2:
-                base_crv = rs.AddLine(pts[0], pts[1])
-            else:
-                base_crv = rs.AddPolyline(pts)
-
+            base_crv = rs.AddLine(pts[0], pts[1]) if len(pts) == 2 else rs.AddPolyline(pts)
             if not base_crv: continue
 
             path_line = rs.AddLine((0, 0, base_z), (0, 0, base_z + height))
             srf = rs.ExtrudeCurve(base_crv, path_line)
-            
             rs.DeleteObject(path_line)
             rs.DeleteObject(base_crv)
-
             if not srf: continue
 
             loc_line = item.get("location_line", rule.get("location_line", "WallCenterline"))
@@ -197,8 +137,7 @@ def generate_mockup():
             else:
                 dist = thickness
                 both_sides = "_No"
-                if "Interior" in loc_line:
-                    flip_cmd = "_FlipAll "
+                if "Interior" in loc_line: flip_cmd = "_FlipAll "
                     
             rs.UnselectAllObjects()
             rs.SelectObject(srf)
@@ -208,15 +147,15 @@ def generate_mockup():
             new_objs = rs.LastCreatedObjects()
             if new_objs:
                 rs.ObjectLayer(new_objs, mockup_layer)
-                
-                # Apply color to all resulting solid parts of this wall
                 for obj in new_objs:
-                    rs.ObjectColor(obj, type_color) # APPLY COLOR
+                    rs.ObjectColor(obj, get_type_color(type_name))
+                    # POINT 3 FIX: Apply attributes
+                    apply_attributes_to_solid(obj, item)
 
+    # POINT 4 FIX: Clean up selection and restore original layer
+    rs.UnselectAllObjects()
+    rs.CurrentLayer(original_layer)
     rs.EnableRedraw(True)
-    rs.ZoomExtents()
-    
-    # Ensure Rhino displays the object colors instead of layer colors
     rs.ViewDisplayMode(rs.CurrentView(), "Shaded")
     print("\n✅ 3D Validation Mockup Complete!")
 

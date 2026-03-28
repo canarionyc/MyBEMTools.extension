@@ -29,7 +29,7 @@ def dump_bem_geometry():
         print("⚠️ No lines or polylines found.")
         return
 
-    payload = []
+    payload = {}
     stats = {"Lines": 0, "Polylines": 0, "Skipped": 0, "Warnings": 0}
 
     # 2. Process each curve
@@ -74,7 +74,9 @@ def dump_bem_geometry():
                     print(f"   ⚠️ Warning: Ignored invalid attribute '{key}' on {category} wall.")
                     stats["Warnings"] += 1
 
-        payload.append(element_data)
+        if parent_level not in payload:
+            payload[parent_level] = []
+        payload[parent_level].append(element_data)
 
     sorted_payload = {k: payload[k] for k in sorted(payload.keys())}
 

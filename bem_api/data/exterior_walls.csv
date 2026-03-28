@@ -1,4 +1,4 @@
-thickness,200
-Top_Level,LVL04_RECRECIDO_CUBIERTA
-BEM_Type,Wall_Exterior
-location_line,WallCenterline
+thickness,200,
+location_line,FinishFaceExterior,
+top_level,LVL40_RECRECIDO_CUBIERTA,
+family_name,Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm

@@ -21,7 +21,7 @@
   },
   "types": {
     "BEM-WALLS-EXT": {
-      "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+      "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
       "thickness": 200.0,
       "location_line": "WallCenterline",
       "top_constraint": "NextLevel"
@@ -40,7 +40,7 @@
       "unconnected_height": 600.0
     },
     "Roof_Parapet": {
-      "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+      "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
       "thickness": 200.0,
       "location_line": "WallCenterline",
       "top_constraint": "Unconnected",
