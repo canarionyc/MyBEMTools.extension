@@ -2,10 +2,28 @@
 import rhinoscriptsyntax as rs
 import json
 import os
+import hashlib # NEW: Used for generating colors from text
 
 # --- PATHS ---
 PAYLOAD_PATH = r"C:\dev\MyBEMTools.extension\bem_api\output\payload.json"
 RULES_PATH = r"C:\dev\MyBEMTools.extension\bem_api\data\rules.json"
+
+def get_type_color(type_name):
+    """Generates a consistent, bright RGB color based on the family or floor name."""
+    if not type_name:
+        return (150, 150, 150) # Fallback gray
+        
+    # Convert text to a unique hexadecimal number
+    m = hashlib.md5(type_name.encode('utf-8'))
+    h = m.hexdigest()
+    
+    # Use parts of the hex to create RGB values
+    # We use % 156 + 100 to ensure the colors stay bright and visible!
+    r = (int(h[0:2], 16) % 156) + 100
+    g = (int(h[2:4], 16) % 156) + 100
+    b = (int(h[4:6], 16) % 156) + 100
+    
+    return (r, g, b)
 
 def generate_mockup():
     print("--- STARTING 3D BEM VALIDATION ---")
@@ -36,7 +54,8 @@ def generate_mockup():
         if existing_objs:
             rs.DeleteObjects(existing_objs)
     else:
-        rs.AddLayer(mockup_layer, color=(0, 150, 255))
+        # Layer itself is gray, but objects will override it
+        rs.AddLayer(mockup_layer, color=(100, 100, 100))
         
     rs.CurrentLayer(mockup_layer)
 
@@ -68,7 +87,6 @@ def generate_mockup():
         base_z = None
         current_level_index = -1
         
-        # Using exact matching now since we aligned our schema!
         for idx, (lvl_name, z_val) in enumerate(sorted_levels):
             if lvl_name == payload_level:
                 base_z = z_val
@@ -76,40 +94,37 @@ def generate_mockup():
                 break
                 
         if base_z is None:
-            print(f"   ❌ Error: Level '{payload_level}' does not exactly match any level in rules.json!")
             continue
 
-
-
-        thickness = float(rule.get("thickness", 200.0))
-        
-        # --- APPLY BASE OFFSET ---
-        # Look for a base_offset in the item, default to 0.0 if not found
+        # --- B. APPLY BASE OFFSET ---
         base_offset = float(item.get("base_offset", rule.get("base_offset", 0.0)))
-        base_z += base_offset # Shift our starting elevation
-        
+        base_z += base_offset
         if base_offset != 0.0:
             print(f"   - Applied Base Offset: {base_offset}mm")
-            
-        pts = [rs.coerce3dpoint([pt[0], pt[1], base_z]) for pt in coords]
 
+        
+        pts = [rs.coerce3dpoint([pt[0], pt[1], base_z]) for pt in coords]
 
         # ==========================================
         # FORK IN LOGIC: FLOOR vs WALL
         # ==========================================
         if rule.get("is_floor"):
-            print("   - Element Type: FLOOR")
-            print(f"   - Base Z: {base_z}mm | Thickness: {thickness}mm downwards")
             
-            # Ensure the curve is perfectly closed for a floor slab
+            # Extract the specific floor type to generate its color
+            type_name = item.get("floor_type", rule.get("floor_type", "Default Floor"))
+            if type_name == "Foundation Slab":
+                print(type_name)
+
+            type_color = get_type_color(type_name)
+            
+            print(f"   - Element Type: FLOOR | {type_name}")
+            
             if rs.Distance(pts[0], pts[-1]) > 0.1:
                 pts.append(pts[0])
                 
             base_crv = rs.AddPolyline(pts)
-            if not base_crv:
-                continue
-                
-            # Extrude DOWNWARDS by the thickness
+            if not base_crv: continue
+            thickness = float(rule.get("thickness", 200.0))    
             path_line = rs.AddLine((0, 0, base_z), (0, 0, base_z - thickness))
             extrusion = rs.ExtrudeCurve(base_crv, path_line)
             
@@ -119,17 +134,21 @@ def generate_mockup():
                 
                 # Because it was capped in place, the ID 'extrusion' is still valid!
                 rs.ObjectLayer(extrusion, mockup_layer)
+                rs.ObjectColor(extrusion, type_color) # APPLY COLOR
             
             rs.DeleteObject(path_line)
             rs.DeleteObject(base_crv)
             
         else:
             # --- WALL LOGIC ---
-            height = 3000.0 # Default fallback
-            top_z = None
+            # Extract the specific wall family to generate its color
+            type_name = item.get("family_name", rule.get("family_name", "Default Wall"))
+            type_color = get_type_color(type_name)
             
-            # Override Logic
+            height = 3000.0
+            top_z = None
             explicit_top = item.get("top_level") 
+            
             if explicit_top:
                 for lvl_name, z_val in sorted_levels:
                     if lvl_name == explicit_top:
@@ -170,7 +189,7 @@ def generate_mockup():
 
             if not srf: continue
 
-            loc_line = item.get("location_line",rule.get("location_line", "WallCenterline"))
+            loc_line = item.get("location_line", rule.get("location_line", "WallCenterline"))
             flip_cmd = ""
             if "Centerline" in loc_line:
                 dist = thickness / 2.0
@@ -189,9 +208,15 @@ def generate_mockup():
             new_objs = rs.LastCreatedObjects()
             if new_objs:
                 rs.ObjectLayer(new_objs, mockup_layer)
+                
+                # Apply color to all resulting solid parts of this wall
+                for obj in new_objs:
+                    rs.ObjectColor(obj, type_color) # APPLY COLOR
 
     rs.EnableRedraw(True)
     rs.ZoomExtents()
+    
+    # Ensure Rhino displays the object colors instead of layer colors
     rs.ViewDisplayMode(rs.CurrentView(), "Shaded")
     print("\n✅ 3D Validation Mockup Complete!")
 

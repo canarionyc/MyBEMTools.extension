@@ -29,7 +29,7 @@ def dump_bem_geometry():
         print("⚠️ No lines or polylines found.")
         return
 
-    payload_data = []
+    payload = []
     stats = {"Lines": 0, "Polylines": 0, "Skipped": 0, "Warnings": 0}
 
     # 2. Process each curve
@@ -74,14 +74,16 @@ def dump_bem_geometry():
                     print(f"   ⚠️ Warning: Ignored invalid attribute '{key}' on {category} wall.")
                     stats["Warnings"] += 1
 
-        payload_data.append(element_data)
+        payload.append(element_data)
+
+    sorted_payload = {k: payload[k] for k in sorted(payload.keys())}
 
     # 4. Export
-    if payload_data:
+    if payload:
         with open(PAYLOAD_PATH, 'w', encoding='utf-8') as f:
-            json.dump(payload_data, f, indent=4, ensure_ascii=False)
+            json.dump(sorted_payload, f, indent=4, ensure_ascii=False)
             
-        print(f"\n✅ SUCCESS! Dumped {len(payload_data)} elements to: payload.json")
+        print(f"\n✅ SUCCESS! Dumped {len(sorted_payload)} elements to: {PAYLOAD_PATH}")
         print(f"Stats: {stats['Lines']} Lines, {stats['Polylines']} Polylines.")
         if stats["Warnings"] > 0:
             print(f"⚠️ Generated {stats['Warnings']} warnings for invalid attributes. Check command history.")
