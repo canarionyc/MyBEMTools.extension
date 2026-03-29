@@ -17,7 +17,7 @@ except ImportError:
 # CONFIGURATION
 # ========================================================
 # EXACT NAME of the schedule in your Project Browser
-SCHEDULE_NAME = "Material Takeoff" 
+SCHEDULE_NAME = "Multi-CategoryMaterial Takeoff" 
 
 # Output path
 user_home = os.environ['USERPROFILE']

@@ -48,7 +48,7 @@
     },
     "BEM-FLOORS-EXT": {
       "is_floor": true,
-      "floor_type": "Suelo por defecto - 170 mm",
+      "floor_type": "Suelo Porche y Terraza 17 cm",
       "thickness": 170.0
     },
     "BEM-FLOORS-INT": {
