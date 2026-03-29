@@ -1,0 +1,1765 @@
+﻿{
+    "Walls": {
+        "Muro de ladrillo visto": {
+            "total_thickness_m": 0.26000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Poliestireno expandido"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.070000000000000007, 
+                    "material": "Ladrillo de cerámica hueco doble"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Chapado piedra trasd. cerámico - 30 cm": {
+            "total_thickness_m": 0.30499999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.035000000000000003, 
+                    "conductivity": 9.5139999999999993, 
+                    "material": "Piedra", 
+                    "r_value": 0.0040000000000000001
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.125, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Trasdosado cerámico"
+                }
+            ]
+        }, 
+        "Muro cortina - 300 x 200 cm": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }, 
+        "Fachada monocapa con aislamiento exterior": {
+            "total_thickness_m": 0.23999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de una capa"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Poliestireno expandido"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.050000000000000003, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.60999999999999999
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Placa de yeso laminado"
+                }
+            ]
+        }, 
+        "Fachada ventilada - muro ladrillo - 27 cm": {
+            "total_thickness_m": 0.26500000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.035000000000000003, 
+                    "material": "Metal - Fachada ventilada"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.040000000000000001, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.48799999999999999
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.125, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm": {
+            "total_thickness_m": 0.20000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero beis"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.12, 
+                    "material": "Hormigón  - Bloques"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Yeso"
+                }
+            ]
+        }, 
+        "Ladrillo enfoscado - trasd. cerámico - 28 cm": {
+            "total_thickness_m": 0.28000000000000003, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero beis"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.12, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Trasdosado cerámico"
+                }
+            ]
+        }, 
+        "Ladrillo cara vista - trasd. PYL - 23 cm": {
+            "total_thickness_m": 0.23000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.125, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.089999999999999997, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Yeso"
+                }
+            ]
+        }, 
+        "Hormigón - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Muro medianero con capa de yeso": {
+            "total_thickness_m": 0.26000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.089999999999999997, 
+                    "material": "Ladrillo de cerámica hueco doble"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Fibra mineral"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.089999999999999997, 
+                    "material": "Ladrillo de cerámica hueco doble"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Tabique - 10 cm": {
+            "total_thickness_m": 0.10000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Muro cortina - horizontal": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }, 
+        "Ladrillo cara vista 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "material": "Ladrillo"
+                }
+            ]
+        }, 
+        "Bloque hormigón con ladrillo cara vista": {
+            "total_thickness_m": 0.40000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.12, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.02, 
+                    "material": "Hormigón  - Mortero"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.25, 
+                    "material": "Hormigón  - Bloques"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Hormigón con enlucido - 33 cm": {
+            "total_thickness_m": 0.33000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Fachada ventilada con aislamiento interior": {
+            "total_thickness_m": 0.27500000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Revestimiento exterior de piedra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.60999999999999999
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Capa de mortero y enlucido"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Placa de yeso laminado"
+                }
+            ]
+        }, 
+        "Por defecto - 10 cm": {
+            "total_thickness_m": 0.10000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "No Material"
+                }
+            ]
+        }, 
+        "Muro cortina - vertical": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }, 
+        "Ladrillo enfoscado - trasd. PYL - 24 cm": {
+            "total_thickness_m": 0.23999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero beis"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.12, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.089999999999999997, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Yeso"
+                }
+            ]
+        }, 
+        "Chapado piedra trasdosado PYL - 30 cm": {
+            "total_thickness_m": 0.22500000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.035000000000000003, 
+                    "conductivity": 9.5139999999999993, 
+                    "material": "Piedra", 
+                    "r_value": 0.0040000000000000001
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.125, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Yeso"
+                }
+            ]
+        }, 
+        "Fachada ventilada - muro hormigón - 30 cm": {
+            "total_thickness_m": 0.28999999999999998, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.035000000000000003, 
+                    "material": "Metal - Fachada ventilada"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.040000000000000001, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.48799999999999999
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.14999999999999999, 
+                    "material": "Hormigón  - Bloques"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Fachada monocapa": {
+            "total_thickness_m": 0.23000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de una capa"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Aislamiento - Poliestireno expandido"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Ladrillo de cerámica hueco simple"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Partición de placa de yeso laminado": {
+            "total_thickness_m": 0.074999999999999997, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Placa de yeso laminado"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.044999999999999998, 
+                    "material": "Aislamiento - Fibra mineral"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Placa de yeso laminado"
+                }
+            ]
+        }, 
+        "Hormigón con cimentación - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Fachada ventilada con aislamiento exterior": {
+            "total_thickness_m": 0.27500000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Revestimiento exterior de piedra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.60999999999999999
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Capa de mortero y enlucido"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Partición con capa de yeso": {
+            "total_thickness_m": 0.10000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.070000000000000007, 
+                    "material": "Ladrillo de cerámica hueco doble"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Muro cortina - simple": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }, 
+        "Bloque hormigón enfos. trasd. cerámico - 31 cm": {
+            "total_thickness_m": 0.31, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero beis"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.14999999999999999, 
+                    "material": "Hormigón  - Bloques"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Fachada monocapa con cámara de aire": {
+            "total_thickness_m": 0.28499999999999998, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero de una capa"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico perforado"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Aislamiento - Poliestireno expandido"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.029999999999999999, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.36599999999999999
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.070000000000000007, 
+                    "material": "Ladrillo de cerámica hueco simple"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Por defecto - 20 cm": {
+            "total_thickness_m": 0.20000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.20000000000000001, 
+                    "material": "No Material"
+                }
+            ]
+        }, 
+        "Por defecto - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "material": "No Material"
+                }
+            ]
+        }, 
+        "Bloque hormigón enfos. trasd. PYL - 27 cm": {
+            "total_thickness_m": 0.27000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero beis"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.14999999999999999, 
+                    "material": "Hormigón  - Bloques"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.089999999999999997, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Yeso"
+                }
+            ]
+        }, 
+        "Ladrillo cara vista - trasd. cerámico - 27 cm": {
+            "total_thickness_m": 0.27000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.125, 
+                    "material": "Ladrillo"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Trasdosado cerámico"
+                }
+            ]
+        }, 
+        "Muro de ladrillo visto con cámara de aire": {
+            "total_thickness_m": 0.28000000000000003, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.115, 
+                    "material": "Ladrillo cerámico macizo"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.01, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Poliestireno expandido"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.02, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.24399999999999999
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.070000000000000007, 
+                    "material": "Ladrillo de cerámica hueco doble"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }
+    }, 
+    "Structural Foundations": {
+        "Losa de cimentación 1": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "material": "No Material"
+                }
+            ]
+        }
+    }, 
+    "Stacked Walls": {
+        "Muro apilado (1)": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }
+    }, 
+    "Roofs": {
+        "Plana invertida no transitable - 40 cm": {
+            "total_thickness_m": 0.40000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Hormigón  - Mortero"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }
+            ]
+        }, 
+        "Cristalera inclinada": {
+            "total_thickness_m": 0.0, 
+            "layers": []
+        }, 
+        "Plana tradicional transitable - 40 cm": {
+            "total_thickness_m": 0.40000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }
+            ]
+        }, 
+        "Plana tipo deck - 16 cm": {
+            "total_thickness_m": 0.16, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Metal - Chapado (1)"
+                }
+            ]
+        }, 
+        "Plana ventilada transitable": {
+            "total_thickness_m": 0.59499999999999997, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Azulejos de cerámica"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de polietileno"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de polietileno"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Cubiertas - Láminas de caja y espiga"
+                }, 
+                {
+                    "layer_index": 9, 
+                    "thickness_m": 0.10000000000000001, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 1.2190000000000001
+                }, 
+                {
+                    "layer_index": 10, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Fibra mineral"
+                }, 
+                {
+                    "layer_index": 11, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Plano transitable": {
+            "total_thickness_m": 0.55500000000000005, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Azulejos de cerámica"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de polietileno"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de asfalto reforzado"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 9, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 10, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Plana invertida transitable": {
+            "total_thickness_m": 0.55500000000000005, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Azulejos de cerámica"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de polietileno"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de asfalto reforzado"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 9, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Teja sobre rastreles - 22 cm": {
+            "total_thickness_m": 0.22, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Teja plana"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.029999999999999999, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 0.36599999999999999
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Madera - Listel"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Madera - Listel"
+                }
+            ]
+        }, 
+        "Plano con suelo flotante": {
+            "total_thickness_m": 0.63, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Baldosas de piedra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.10000000000000001, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 1.2190000000000001
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Geotextil de poliéster"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de asfalto reforzado"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 9, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Plano invertido con protección de grava": {
+            "total_thickness_m": 0.58999999999999997, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Grava aglomerada"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Geotextil de poliéster"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Cubierta - por defecto - 35 cm": {
+            "total_thickness_m": 0.34999999999999998, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.34999999999999998, 
+                    "material": "Cubierta por defecto"
+                }
+            ]
+        }, 
+        "Pizarra sobre rastreles - 15 cm": {
+            "total_thickness_m": 0.14999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Piedra - pizarra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Madera - Listel"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.029999999999999999, 
+                    "material": "Madera - Listel"
+                }
+            ]
+        }, 
+        "Plano con protección de grava": {
+            "total_thickness_m": 0.58999999999999997, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Grava aglomerada"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Geotextil de poliéster"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de asfalto reforzado"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Pizarra sobre forjado - 36 cm": {
+            "total_thickness_m": 0.35999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.01, 
+                    "material": "Piedra - pizarra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Teja sobre forjado - 40 cm": {
+            "total_thickness_m": 0.40000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Teja plana"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.080000000000000002, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Plano invertido con suelo flotante": {
+            "total_thickness_m": 0.63, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Baldosas de piedra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.10000000000000001, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 1.2190000000000001
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Geotextil de poliéster"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Aislamiento - Paneles"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Membrana de asfalto con dos capas"
+                }, 
+                {
+                    "layer_index": 6, 
+                    "thickness_m": 0.0, 
+                    "material": "Cubiertas - Lámina de asfalto reforzado"
+                }, 
+                {
+                    "layer_index": 7, 
+                    "thickness_m": 0.040000000000000001, 
+                    "material": "Mortero de hormigón"
+                }, 
+                {
+                    "layer_index": 8, 
+                    "thickness_m": 0.10000000000000001, 
+                    "material": "Cubiertas - Arcilla seca expandida"
+                }, 
+                {
+                    "layer_index": 9, 
+                    "thickness_m": 0.29999999999999999, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.086999999999999994
+                }
+            ]
+        }, 
+        "Cubierta - por defecto - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "material": "Cubierta por defecto"
+                }
+            ]
+        }
+    }, 
+    "Floors": {
+        "Con pavimento técnico - 50 cm": {
+            "total_thickness_m": 0.5, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.25, 
+                    "conductivity": 0.082000000000000003, 
+                    "material": "Aire", 
+                    "r_value": 3.0480000000000000
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Suelo con bovedilla cerámica – 35 cm": {
+            "total_thickness_m": 0.34999999999999998, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.065000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.014999999999999999
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.20000000000000001, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Con bovedilla cerámica - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.065000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.040000000000000001, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.012
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.16, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Suelo Porche y Terraza 17 cm": {
+            "total_thickness_m": 0.17000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Baldosas de piedra"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.01, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.14000000000000001, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.041000000000000002
+                }
+            ]
+        }, 
+        "Solera - 8 cm": {
+            "total_thickness_m": 0.080000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.080000000000000002, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.023
+                }
+            ]
+        }, 
+        "Con bovedilla cerámica - 34 cm": {
+            "total_thickness_m": 0.34000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.065000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.040000000000000001, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.012
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.20000000000000001, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Con parquet - 32 cm": {
+            "total_thickness_m": 0.32000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Madera - Parquet"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.02, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Con bovedilla cerámica - 40 cm": {
+            "total_thickness_m": 0.40000000000000002, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.065000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.059999999999999998, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.017000000000000001
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.23999999999999999, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Con losa flotante - 32 cm": {
+            "total_thickness_m": 0.32000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.02, 
+                    "material": "Aislamiento térmico"
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Por defecto - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.29999999999999999, 
+                    "material": "No Material"
+                }
+            ]
+        }, 
+        "Acera 19 cm": {
+            "total_thickness_m": 0.19, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "conductivity": 3.7730000000000001, 
+                    "material": "Asfalto, betún", 
+                    "r_value": 0.0050000000000000001
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.01, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.16, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.047
+                }
+            ]
+        }, 
+        "Suelo Recrecido base armarios 10 cm": {
+            "total_thickness_m": 0.10000000000000001, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.01, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.070000000000000007, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.02
+                }
+            ]
+        }, 
+        "Hormigón 160 mm con chapa grecada 50 mm": {
+            "total_thickness_m": 0.20999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.20999999999999999, 
+                    "material": "No Material"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.0, 
+                    "material": "Metal - Chapado (2)"
+                }
+            ]
+        }, 
+        "Con bovedilla cerámica - 35 cm": {
+            "total_thickness_m": 0.34999999999999998, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.065000000000000002, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.050000000000000003, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón, Moldeado in situ, gris", 
+                    "r_value": 0.014999999999999999
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.20000000000000001, 
+                    "material": "Ladrillo hueco"
+                }, 
+                {
+                    "layer_index": 5, 
+                    "thickness_m": 0.014999999999999999, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }, 
+        "Con pavimento flotante - 30 cm": {
+            "total_thickness_m": 0.29999999999999999, 
+            "layers": [
+                {
+                    "layer_index": 1, 
+                    "thickness_m": 0.02, 
+                    "material": "Cerámica blanca"
+                }, 
+                {
+                    "layer_index": 2, 
+                    "thickness_m": 0.050000000000000003, 
+                    "material": "Hormigón y arena"
+                }, 
+                {
+                    "layer_index": 3, 
+                    "thickness_m": 0.22, 
+                    "conductivity": 3.4319999999999999, 
+                    "material": "Hormigón", 
+                    "r_value": 0.064000000000000001
+                }, 
+                {
+                    "layer_index": 4, 
+                    "thickness_m": 0.01, 
+                    "material": "Enlucido - Blanco"
+                }
+            ]
+        }
+    }
+}

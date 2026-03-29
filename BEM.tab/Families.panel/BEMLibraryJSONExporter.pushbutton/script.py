@@ -15,7 +15,7 @@ if not os.path.exists(desktop):
 json_path = os.path.join(desktop, "catalog.json")
 
 def get_safe_name(element):
-    """Safely gets the name of a type (Exactly as it was in the CSV script)."""
+    """Safely gets the name of a type."""
     if not element: return "Unknown"
     p = element.get_Parameter(DB.BuiltInParameter.SYMBOL_NAME_PARAM)
     if p and p.HasValue: return p.AsString()
@@ -26,8 +26,6 @@ def run_export():
 
     # 1. Collect all System Families
     categories = [DB.WallType, DB.FloorType, DB.RoofType]
-    
-    # NEW: A dictionary to hold the JSON data instead of a list of rows
     catalog = {}
 
     print("Scanning model for Family Types...")
@@ -68,14 +66,15 @@ def run_export():
                 th_m = DB.UnitUtils.ConvertFromInternalUnits(th_rvt, DB.UnitTypeId.Meters)
                 total_th_m += th_m
 
-                # Base layer dictionary (always included)
+                # Base layer dictionary (guaranteed values)
                 layer_data = {
                     "layer_index": i + 1,
                     "material": mat_name,
                     "thickness_m": round(th_m, 3)
                 }
 
-                # Thermal Extraction (Only added to dictionary if it exists)
+                # Thermal Extraction (Only added if values exist!)
+                k_val = 0.0
                 if mat:
                     asset_id = mat.ThermalAssetId
                     if asset_id != DB.ElementId.InvalidElementId:
@@ -85,7 +84,6 @@ def run_export():
                                 thermal_asset = asset_elem.GetThermalAsset()
                                 k_val = thermal_asset.ThermalConductivity
                                 if k_val > 0:
-                                    # Add the keys dynamically!
                                     layer_data["conductivity"] = round(k_val, 3)
                                     layer_data["r_value"] = round(th_m / k_val, 3)
                             except:
@@ -105,16 +103,15 @@ def run_export():
             
             # Open in binary write mode ('wb') exactly like the CSV script
             with open(json_path, 'wb') as f:
-                f.write('\xef\xbb\xbf')  # <--- THE MAGIC BOM LINE
-                # Encode the entire JSON string to utf-8 just like the CSV rows
+                f.write('\xef\xbb\xbf')  # The Magic BOM Line
                 f.write(unicode(json_string).encode('utf-8'))
 
             print("\n✅ EXPORT SUCCESS!")
             print("File saved to: " + json_path)
             
-            # --- THE FIX: Use pyRevit's native link generator ---
-            output.linkify(json_path, title="👉 Click here to open catalog.json")
-            
+            # --- THE FIX: Automatically open the file! ---
+            os.startfile(json_path)
+
         except Exception as e:
             print("❌ Error writing file: " + str(e))
     else:
