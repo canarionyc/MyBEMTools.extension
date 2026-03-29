@@ -57,7 +57,7 @@ def run_export():
             layers = struct.GetLayers()
             total_th_m = 0.0
 
-            # Extract Layer Data (Exactly as it was in the CSV script)
+            # Extract Layer Data
             for i, layer in enumerate(layers):
                 mat_id = layer.MaterialId
                 mat = doc.GetElement(mat_id)
@@ -68,9 +68,14 @@ def run_export():
                 th_m = DB.UnitUtils.ConvertFromInternalUnits(th_rvt, DB.UnitTypeId.Meters)
                 total_th_m += th_m
 
-                # Thermal Extraction
-                k_val = 0.0
-                r_val = 0.0
+                # Base layer dictionary (always included)
+                layer_data = {
+                    "layer_index": i + 1,
+                    "material": mat_name,
+                    "thickness_m": round(th_m, 3)
+                }
+
+                # Thermal Extraction (Only added to dictionary if it exists)
                 if mat:
                     asset_id = mat.ThermalAssetId
                     if asset_id != DB.ElementId.InvalidElementId:
@@ -80,18 +85,14 @@ def run_export():
                                 thermal_asset = asset_elem.GetThermalAsset()
                                 k_val = thermal_asset.ThermalConductivity
                                 if k_val > 0:
-                                    r_val = th_m / k_val
+                                    # Add the keys dynamically!
+                                    layer_data["conductivity"] = round(k_val, 3)
+                                    layer_data["r_value"] = round(th_m / k_val, 3)
                             except:
-                                pass # Skip if the material has no thermal data
+                                pass 
 
                 # Append layer data to our JSON dictionary
-                catalog[category_name][type_name]["layers"].append({
-                    "layer_index": i + 1,
-                    "material": mat_name,
-                    "thickness_m": round(th_m, 3),
-                    "conductivity": round(k_val, 3) if k_val > 0 else None,
-                    "r_value": round(r_val, 3) if r_val > 0 else None
-                })
+                catalog[category_name][type_name]["layers"].append(layer_data)
             
             # Save total thickness
             catalog[category_name][type_name]["total_thickness_m"] = round(total_th_m, 3)
@@ -110,7 +111,10 @@ def run_export():
 
             print("\n✅ EXPORT SUCCESS!")
             print("File saved to: " + json_path)
-            output.print_md("### [Click here to open folder](file:///{})".format(desktop.replace("\\", "/")))
+            
+            # --- THE FIX: Use pyRevit's native link generator ---
+            output.linkify(json_path, title="👉 Click here to open catalog.json")
+            
         except Exception as e:
             print("❌ Error writing file: " + str(e))
     else:
