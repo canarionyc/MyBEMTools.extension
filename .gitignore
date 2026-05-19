@@ -5,3 +5,4 @@
 /data/
 *.bak
 /bem_api/output
+/bem_api/data/.idea

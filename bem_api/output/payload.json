@@ -1,4 +1,201 @@
 {
+    "LVL10_TERRAZA_Y_PORCHE": [
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    7900.0,
+                    7600.0
+                ],
+                [
+                    13200.000000000005,
+                    7600.0
+                ]
+            ],
+            "location_line": "FinishFaceExterior",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
+            "thickness": 200.0,
+            "top_level": "LVL40_RECRECIDO_CUBIERTA"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    7899.9999920523005,
+                    9400.0
+                ],
+                [
+                    7900.000012398412,
+                    7600.0
+                ]
+            ],
+            "location_line": "FinishFaceExterior",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
+            "thickness": 200.0,
+            "top_level": "LVL40_RECRECIDO_CUBIERTA"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Polyline",
+            "coordinates": [
+                [
+                    4800.0,
+                    4100.0
+                ],
+                [
+                    4800.0,
+                    4100.0
+                ],
+                [
+                    4800.0,
+                    4091.2046771423534
+                ],
+                [
+                    4800.0,
+                    1100.0
+                ]
+            ],
+            "thickness": 200.0,
+            "location_line": "FinishFaceExterior",
+            "top_level": "LVL40_RECRECIDO_CUBIERTA",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    7900.0,
+                    2000.0
+                ],
+                [
+                    7900.0,
+                    4100.0
+                ]
+            ],
+            "thickness": 200.0,
+            "location_line": "FinishFaceExterior",
+            "top_level": "LVL40_RECRECIDO_CUBIERTA",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    10800.0,
+                    2000.0
+                ],
+                [
+                    7900.0,
+                    2000.0
+                ]
+            ],
+            "thickness": 200.0,
+            "location_line": "FinishFaceExterior",
+            "top_level": "LVL40_RECRECIDO_CUBIERTA",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    7900.0,
+                    4100.0
+                ],
+                [
+                    4800.0,
+                    4100.0
+                ]
+            ],
+            "thickness": 200.0,
+            "location_line": "FinishFaceExterior",
+            "top_level": "LVL40_RECRECIDO_CUBIERTA",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Line",
+            "coordinates": [
+                [
+                    4800.0,
+                    1100.0
+                ],
+                [
+                    3900.0,
+                    1100.0
+                ]
+            ],
+            "thickness": 200.0,
+            "location_line": "FinishFaceExterior",
+            "top_level": "LVL40_RECRECIDO_CUBIERTA",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Polyline",
+            "coordinates": [
+                [
+                    4800.0,
+                    1500.0
+                ],
+                [
+                    5400.0,
+                    1500.0
+                ],
+                [
+                    5400.0,
+                    4100.0
+                ]
+            ],
+            "thickness": 100.0,
+            "top_offset": 330.0,
+            "top_level": "LVL10_TERRAZA_Y_PORCHE",
+            "family_name": "Tabique - 10 cm"
+        },
+        {
+            "level": "LVL10_TERRAZA_Y_PORCHE",
+            "category": "BEM-WALLS-EXT",
+            "geometry_type": "Polyline",
+            "coordinates": [
+                [
+                    7400.0,
+                    4100.0
+                ],
+                [
+                    7400.0,
+                    1500.0
+                ],
+                [
+                    10200.0,
+                    1500.0
+                ],
+                [
+                    10200.0,
+                    600.0
+                ],
+                [
+                    10800.0,
+                    600.0
+                ]
+            ],
+            "family_name": "Tabique - 10 cm",
+            "thickness": 100.0,
+            "top_level": "LVL10_TERRAZA_Y_PORCHE",
+            "top_offset": 330.0
+        }
+    ],
     "LVL00_JARDIN_O_CALLE": [
         {
             "level": "LVL00_JARDIN_O_CALLE",
@@ -72,7 +269,7 @@
                 ]
             ],
             "location_line": "FinishFaceExterior",
-            "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
             "thickness": 200.0,
             "top_level": "LVL40_RECRECIDO_CUBIERTA"
         },
@@ -91,7 +288,7 @@
                 ]
             ],
             "location_line": "FinishFaceExterior",
-            "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
             "thickness": 200.0,
             "top_level": "LVL40_RECRECIDO_CUBIERTA"
         },
@@ -106,7 +303,7 @@
                 ],
                 [
                     13700.0,
-                    4100.0
+                    4099.999999999999
                 ]
             ],
             "location_line": "FinishFaceExterior",
@@ -120,7 +317,7 @@
             "geometry_type": "Line",
             "coordinates": [
                 [
-                    13200.0,
+                    13200.000000000005,
                     7600.0
                 ],
                 [
@@ -158,11 +355,11 @@
             "geometry_type": "Line",
             "coordinates": [
                 [
-                    7900.0,
+                    7899.999993800794,
                     9700.0
                 ],
                 [
-                    7900.0,
+                    7899.9999920523005,
                     9400.0
                 ]
             ],
@@ -181,7 +378,7 @@
                     9700.0
                 ],
                 [
-                    7900.0,
+                    7899.999993800794,
                     9700.0
                 ]
             ],
@@ -211,77 +408,6 @@
         },
         {
             "level": "LVL00_JARDIN_O_CALLE",
-            "category": "BEM-FOUNDATION-SLAB",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    2900.0,
-                    9700.0
-                ],
-                [
-                    7900.0,
-                    9700.0
-                ],
-                [
-                    7900.0,
-                    7600.0
-                ],
-                [
-                    13700.0,
-                    7600.0
-                ],
-                [
-                    13700.0,
-                    4100.0
-                ],
-                [
-                    11700.0,
-                    4100.0
-                ],
-                [
-                    11700.0,
-                    2000.0
-                ],
-                [
-                    7900.0,
-                    2000.0
-                ],
-                [
-                    7900.0,
-                    4100.0
-                ],
-                [
-                    4800.0,
-                    4100.0
-                ],
-                [
-                    4800.0,
-                    1100.0
-                ],
-                [
-                    100.0,
-                    1100.0
-                ],
-                [
-                    100.0,
-                    6800.0
-                ],
-                [
-                    2900.0,
-                    6800.0
-                ],
-                [
-                    2900.0,
-                    9700.0
-                ]
-            ],
-            "base_offset": 0.0,
-            "is_floor": "true",
-            "floor_type": "Foundation Slab",
-            "thickness": 350.0
-        },
-        {
-            "level": "LVL00_JARDIN_O_CALLE",
             "category": "BEM-WALLS-EXT",
             "geometry_type": "Line",
             "coordinates": [
@@ -291,339 +417,16 @@
                 ],
                 [
                     10800.0,
-                    600.0
-                ]
-            ],
-            "location_line": "FinishFaceExterior",
-            "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
-            "thickness": 200.0,
-            "top_level": "LVL40_RECRECIDO_CUBIERTA"
-        }
-    ],
-    "LVL10_TERRAZA_Y_PORCHE": [
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    7900.0,
-                    7600.0
-                ],
-                [
-                    13200.0,
-                    7600.0
+                    600.0000000000001
                 ]
             ],
             "location_line": "FinishFaceExterior",
             "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
             "thickness": 200.0,
             "top_level": "LVL40_RECRECIDO_CUBIERTA"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    7900.0,
-                    9400.0
-                ],
-                [
-                    7900.0,
-                    7600.0
-                ]
-            ],
-            "location_line": "FinishFaceExterior",
-            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
-            "thickness": 200.0,
-            "top_level": "LVL40_RECRECIDO_CUBIERTA"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    4800.0,
-                    4100.0
-                ],
-                [
-                    4800.0,
-                    4100.0
-                ],
-                [
-                    4800.0,
-                    4091.2047
-                ],
-                [
-                    4800.0,
-                    1100.0
-                ]
-            ],
-            "thickness": 200.0,
-            "location_line": "FinishFaceExterior",
-            "top_level": "LVL40_RECRECIDO_CUBIERTA",
-            "family_name": "Muro básico"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    7900.0,
-                    2000.0
-                ],
-                [
-                    7900.0,
-                    4100.0
-                ]
-            ],
-            "thickness": 200.0,
-            "location_line": "FinishFaceExterior",
-            "top_level": "LVL40_RECRECIDO_CUBIERTA",
-            "family_name": "Muro básico"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    10800.0,
-                    2000.0
-                ],
-                [
-                    7900.0,
-                    2000.0
-                ]
-            ],
-            "thickness": 200.0,
-            "location_line": "FinishFaceExterior",
-            "top_level": "LVL40_RECRECIDO_CUBIERTA",
-            "family_name": "Muro básico"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    7900.0,
-                    4100.0
-                ],
-                [
-                    4800.0,
-                    4100.0
-                ]
-            ],
-            "thickness": 200.0,
-            "location_line": "FinishFaceExterior",
-            "top_level": "LVL40_RECRECIDO_CUBIERTA",
-            "family_name": "Muro básico"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    4800.0,
-                    1100.0
-                ],
-                [
-                    3900.0,
-                    1100.0
-                ]
-            ],
-            "thickness": 200.0,
-            "location_line": "FinishFaceExterior",
-            "top_level": "LVL40_RECRECIDO_CUBIERTA",
-            "family_name": "Muro básico"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-FLOORS-EXT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    4800.0,
-                    1100.0
-                ],
-                [
-                    4800.0,
-                    4100.0
-                ],
-                [
-                    7900.0,
-                    4100.0
-                ],
-                [
-                    7900.0,
-                    2000.0
-                ],
-                [
-                    10800.0,
-                    2000.0
-                ],
-                [
-                    10800.0,
-                    0.0
-                ],
-                [
-                    3900.0,
-                    0.0
-                ],
-                [
-                    3900.0,
-                    1100.0
-                ],
-                [
-                    4800.0,
-                    1100.0
-                ]
-            ]
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    4800.0,
-                    1500.0
-                ],
-                [
-                    5400.0,
-                    1500.0
-                ],
-                [
-                    5400.0,
-                    4100.0
-                ]
-            ],
-            "thickness": 100.0,
-            "top_offset": 330.0,
-            "top_level": "LVL10_TERRAZA_Y_PORCHE",
-            "family_name": "Tabique - 10 cm"
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-WALLS-EXT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    7400.0,
-                    4100.0
-                ],
-                [
-                    7400.0,
-                    1500.0
-                ],
-                [
-                    10200.0,
-                    1500.0
-                ],
-                [
-                    10200.0,
-                    600.0
-                ],
-                [
-                    10800.0,
-                    600.0
-                ]
-            ],
-            "family_name": "Tabique - 10 cm",
-            "thickness": 100.0,
-            "top_level": "LVL10_TERRAZA_Y_PORCHE",
-            "top_offset": 330.0
-        },
-        {
-            "level": "LVL10_TERRAZA_Y_PORCHE",
-            "category": "BEM-FLOORS-EXT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    7900.0,
-                    9400.0
-                ],
-                [
-                    13200.0,
-                    9400.0
-                ],
-                [
-                    13200.0,
-                    7600.0
-                ],
-                [
-                    7900.0,
-                    7600.0
-                ],
-                [
-                    7900.0,
-                    9400.0
-                ]
-            ]
         }
     ],
     "LVL20_INTERIOR_VIVIENDA": [
-        {
-            "level": "LVL20_INTERIOR_VIVIENDA",
-            "category": "BEM-FLOORS-INT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    8500.0,
-                    7600.0
-                ],
-                [
-                    8500.0,
-                    5200.0
-                ],
-                [
-                    7900.0,
-                    5200.0
-                ],
-                [
-                    7900.0,
-                    7600.0
-                ],
-                [
-                    8500.0,
-                    7600.0
-                ]
-            ],
-            "base_offset": 100.0
-        },
-        {
-            "level": "LVL20_INTERIOR_VIVIENDA",
-            "category": "BEM-FLOORS-INT",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    5800.0,
-                    7500.0
-                ],
-                [
-                    7900.0,
-                    7500.0
-                ],
-                [
-                    7900.0,
-                    6800.0
-                ],
-                [
-                    5800.0,
-                    6800.0
-                ],
-                [
-                    5800.0,
-                    7500.0
-                ]
-            ],
-            "base_offset": 100.0
-        },
         {
             "level": "LVL20_INTERIOR_VIVIENDA",
             "category": "BEM-WALLS-INT",
@@ -645,21 +448,6 @@
         },
         {
             "level": "LVL20_INTERIOR_VIVIENDA",
-            "category": "BEM-DOORS",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    5800.0,
-                    7500.0
-                ],
-                [
-                    7900.0,
-                    7500.0
-                ]
-            ]
-        },
-        {
-            "level": "LVL20_INTERIOR_VIVIENDA",
             "category": "BEM-WALLS-INT",
             "geometry_type": "Line",
             "coordinates": [
@@ -675,21 +463,6 @@
             "family_name": "Tabique - 10 cm",
             "thickness": 100.0,
             "top_level": "LVL30_PISO_CUBIERTA"
-        },
-        {
-            "level": "LVL20_INTERIOR_VIVIENDA",
-            "category": "BEM-DOORS",
-            "geometry_type": "Line",
-            "coordinates": [
-                [
-                    8500.0,
-                    7600.0
-                ],
-                [
-                    8500.0,
-                    5200.0
-                ]
-            ]
         },
         {
             "level": "LVL20_INTERIOR_VIVIENDA",
@@ -744,7 +517,8 @@
             "thickness": 100.0,
             "top_level": "LVL30_PISO_CUBIERTA",
             "location_line": "FinishFaceInterior",
-            "debug_flag": 1.0
+            "debug_flag": 1.0,
+            "family_name": "Tabique - 10 cm"
         },
         {
             "level": "LVL20_INTERIOR_VIVIENDA",
@@ -779,89 +553,9 @@
                     6800.0
                 ]
             ],
-            "family_name": "Muro básico, bloque hormigón enfos. trasd. PYL - 20 cm",
+            "family_name": "Muro básico bloque hormigón enfos. trasd. PYL - 20 cm",
             "thickness": 200.0,
             "top_level": "LVL30_PISO_CUBIERTA"
-        }
-    ],
-    "LVL30_PISO_CUBIERTA": [
-        {
-            "level": "LVL30_PISO_CUBIERTA",
-            "category": "BEM-FLOORS-ROOF",
-            "geometry_type": "Polyline",
-            "coordinates": [
-                [
-                    2900.0,
-                    6800.0
-                ],
-                [
-                    100.0,
-                    6800.0
-                ],
-                [
-                    100.0,
-                    1100.0
-                ],
-                [
-                    4800.0,
-                    1100.0
-                ],
-                [
-                    4800.0,
-                    4100.0
-                ],
-                [
-                    7900.0,
-                    4100.0
-                ],
-                [
-                    7900.0,
-                    2000.0
-                ],
-                [
-                    11700.0,
-                    2000.0
-                ],
-                [
-                    11700.0,
-                    4100.0
-                ],
-                [
-                    13700.0,
-                    4100.0
-                ],
-                [
-                    13700.0,
-                    7600.0
-                ],
-                [
-                    13200.0,
-                    7600.0
-                ],
-                [
-                    13200.0,
-                    9400.0
-                ],
-                [
-                    7900.0,
-                    9400.0
-                ],
-                [
-                    7900.0,
-                    9700.0
-                ],
-                [
-                    2900.0,
-                    9700.0
-                ],
-                [
-                    2900.0,
-                    6800.0
-                ]
-            ],
-            "is_floor": "true",
-            "floor_type": "Cubierta plana no transitable - 350 mm",
-            "thickness": 350.0
         }
     ]
 }
