@@ -1,0 +1,402 @@
+[
+  {
+    "Name": "Con pavimento técnico - 50 cm",
+    "total_thickness_m": 0.5,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.25,
+        "conductivity": 0.082000000000000003,
+        "material": "Aire",
+        "r_value": 3.0480000000000000
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Suelo con bovedilla cerámica – 35 cm",
+    "total_thickness_m": 0.34999999999999998,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.065000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.050000000000000003,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.014999999999999999
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.20000000000000001,
+        "material": "Ladrillo hueco"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.014999999999999999,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Con bovedilla cerámica - 30 cm",
+    "total_thickness_m": 0.29999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.065000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.040000000000000001,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.012
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.16,
+        "material": "Ladrillo hueco"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.014999999999999999,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Suelo Porche y Terraza 17 cm",
+    "total_thickness_m": 0.17000000000000001,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Baldosas de piedra"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.01,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.14000000000000001,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.041000000000000002
+      }
+    ]
+  },
+  {
+    "Name": "Solera - 8 cm",
+    "total_thickness_m": 0.080000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.080000000000000002,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.023
+      }
+    ]
+  },
+  {
+    "Name": "Con bovedilla cerámica - 34 cm",
+    "total_thickness_m": 0.34000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.065000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.040000000000000001,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.012
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.20000000000000001,
+        "material": "Ladrillo hueco"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.014999999999999999,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Con parquet - 32 cm",
+    "total_thickness_m": 0.32000000000000001,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Madera - Parquet"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.050000000000000003,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.02,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Con bovedilla cerámica - 40 cm",
+    "total_thickness_m": 0.40000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.065000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.059999999999999998,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.017000000000000001
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.23999999999999999,
+        "material": "Ladrillo hueco"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.014999999999999999,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Con losa flotante - 32 cm",
+    "total_thickness_m": 0.32000000000000001,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.050000000000000003,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.02,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Por defecto - 30 cm",
+    "total_thickness_m": 0.29999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.29999999999999999,
+        "material": "No Material"
+      }
+    ]
+  },
+  {
+    "Name": "Acera 19 cm",
+    "total_thickness_m": 0.19,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "conductivity": 3.7730000000000001,
+        "material": "Asfalto, betún",
+        "r_value": 0.0050000000000000001
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.01,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.16,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.047
+      }
+    ]
+  },
+  {
+    "Name": "Suelo Recrecido base armarios 10 cm",
+    "total_thickness_m": 0.10000000000000001,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.01,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.070000000000000007,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.02
+      }
+    ]
+  },
+  {
+    "Name": "Hormigón 160 mm con chapa grecada 50 mm",
+    "total_thickness_m": 0.20999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.20999999999999999,
+        "material": "No Material"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.0,
+        "material": "Metal - Chapado (2)"
+      }
+    ]
+  },
+  {
+    "Name": "Con bovedilla cerámica - 35 cm",
+    "total_thickness_m": 0.34999999999999998,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.065000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.050000000000000003,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón, Moldeado in situ, gris",
+        "r_value": 0.014999999999999999
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.20000000000000001,
+        "material": "Ladrillo hueco"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.014999999999999999,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Con pavimento flotante - 30 cm",
+    "total_thickness_m": 0.29999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.050000000000000003,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  }
+]

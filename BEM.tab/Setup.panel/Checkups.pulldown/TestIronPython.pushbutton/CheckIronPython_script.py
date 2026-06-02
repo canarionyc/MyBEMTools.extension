@@ -11,18 +11,6 @@ output.print_md("# 🏥 BEM SYSTEM DIAGNOSTIC (Windows 10)")
 def check_environment():
     all_green = True
 
-    # --- 1. PYTHON ENGINE CHECK ---
-    print("\n>>> CHECK 1: Python Engine")
-    engine = sys.version
-    print("    [INFO] Engine: {}".format(engine))
-
-    # Check for IronPython specifically
-    if "IronPython" in engine:
-        print("    [✅ SUCCESS] Running in IronPython (Stable Mode).")
-    else:
-        print("    [❌ WARNING] Running in CPython. Remove #! python3 to fix.")
-        all_green = False
-
     # --- 2. REVIT VERSION CHECK ---
     print("\n>>> CHECK 2: Revit Version")
     try:
@@ -37,6 +25,9 @@ def check_environment():
     # --- 3. PATH HYGIENE (CRITICAL) ---
     print("\n>>> CHECK 3: System Path Hygiene")
     print("    [INFO] Scanning sys.path for rogue libraries...")
+    print("    [INFO] Current sys.path entries:")
+    for p in sys.path:
+        print("    [INFO] - {}".format(p))
     dirty_paths = []
     for p in sys.path:
         # We look for hardcoded external Python paths (like Anaconda or C:\Python312)
@@ -82,4 +73,16 @@ def check_environment():
 
 
 if __name__ == "__main__":
+    # --- 1. PYTHON ENGINE CHECK ---
+    print("\n>>> CHECK 1: Python Engine")
+    engine = sys.version
+    print("    [INFO] Engine: {}".format(engine))
+
+    # Check for IronPython specifically
+    if "IronPython" in engine:
+        print("    [✅ SUCCESS] Running in IronPython (Stable Mode).")
+    else:
+        print("    [❌ WARNING] Running in CPython.")
+        all_green = False
+
     check_environment()

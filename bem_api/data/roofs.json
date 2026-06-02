@@ -1,0 +1,603 @@
+[
+  {
+    "Name": "Plana invertida no transitable - 40 cm",
+    "total_thickness_m": 0.40000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.080000000000000002,
+        "material": "Hormigón  - Mortero"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      }
+    ]
+  },
+  {
+    "Name": "Cristalera inclinada",
+    "total_thickness_m": 0.0,
+    "layers": []
+  },
+  {
+    "Name": "Plana tradicional transitable - 40 cm",
+    "total_thickness_m": 0.40000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.02,
+        "material": "Cerámica blanca"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.080000000000000002,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      }
+    ]
+  },
+  {
+    "Name": "Plana tipo deck - 16 cm",
+    "total_thickness_m": 0.16,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.080000000000000002,
+        "material": "Metal - Chapado (1)"
+      }
+    ]
+  },
+  {
+    "Name": "Plana ventilada transitable",
+    "total_thickness_m": 0.59499999999999997,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.01,
+        "material": "Azulejos de cerámica"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.014999999999999999,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de polietileno"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de polietileno"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.040000000000000001,
+        "material": "Cubiertas - Láminas de caja y espiga"
+      },
+      {
+        "layer_index": 9,
+        "thickness_m": 0.10000000000000001,
+        "conductivity": 0.082000000000000003,
+        "material": "Aire",
+        "r_value": 1.2190000000000001
+      },
+      {
+        "layer_index": 10,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Fibra mineral"
+      },
+      {
+        "layer_index": 11,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Plano transitable",
+    "total_thickness_m": 0.55500000000000005,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.01,
+        "material": "Azulejos de cerámica"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.014999999999999999,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de polietileno"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de asfalto reforzado"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 9,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 10,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Plana invertida transitable",
+    "total_thickness_m": 0.55500000000000005,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.01,
+        "material": "Azulejos de cerámica"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.014999999999999999,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de polietileno"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de asfalto reforzado"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 9,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Teja sobre rastreles - 22 cm",
+    "total_thickness_m": 0.22,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.050000000000000003,
+        "material": "Teja plana"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.029999999999999999,
+        "conductivity": 0.082000000000000003,
+        "material": "Aire",
+        "r_value": 0.36599999999999999
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.029999999999999999,
+        "material": "Madera - Listel"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.029999999999999999,
+        "material": "Madera - Listel"
+      }
+    ]
+  },
+  {
+    "Name": "Plano con suelo flotante",
+    "total_thickness_m": 0.63,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.040000000000000001,
+        "material": "Baldosas de piedra"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.10000000000000001,
+        "conductivity": 0.082000000000000003,
+        "material": "Aire",
+        "r_value": 1.2190000000000001
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Geotextil de poliéster"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de asfalto reforzado"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 9,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Plano invertido con protección de grava",
+    "total_thickness_m": 0.58999999999999997,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Grava aglomerada"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Geotextil de poliéster"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Cubierta - por defecto - 35 cm",
+    "total_thickness_m": 0.34999999999999998,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.34999999999999998,
+        "material": "Cubierta por defecto"
+      }
+    ]
+  },
+  {
+    "Name": "Pizarra sobre rastreles - 15 cm",
+    "total_thickness_m": 0.14999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.01,
+        "material": "Piedra - pizarra"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.029999999999999999,
+        "material": "Madera - Listel"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.029999999999999999,
+        "material": "Madera - Listel"
+      }
+    ]
+  },
+  {
+    "Name": "Plano con protección de grava",
+    "total_thickness_m": 0.58999999999999997,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Grava aglomerada"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Geotextil de poliéster"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de asfalto reforzado"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Pizarra sobre forjado - 36 cm",
+    "total_thickness_m": 0.35999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.01,
+        "material": "Piedra - pizarra"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.040000000000000001,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Teja sobre forjado - 40 cm",
+    "total_thickness_m": 0.40000000000000002,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.050000000000000003,
+        "material": "Teja plana"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.040000000000000001,
+        "material": "Hormigón y arena"
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.080000000000000002,
+        "material": "Aislamiento térmico"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.22,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.064000000000000001
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.01,
+        "material": "Enlucido - Blanco"
+      }
+    ]
+  },
+  {
+    "Name": "Plano invertido con suelo flotante",
+    "total_thickness_m": 0.63,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.040000000000000001,
+        "material": "Baldosas de piedra"
+      },
+      {
+        "layer_index": 2,
+        "thickness_m": 0.10000000000000001,
+        "conductivity": 0.082000000000000003,
+        "material": "Aire",
+        "r_value": 1.2190000000000001
+      },
+      {
+        "layer_index": 3,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Geotextil de poliéster"
+      },
+      {
+        "layer_index": 4,
+        "thickness_m": 0.050000000000000003,
+        "material": "Aislamiento - Paneles"
+      },
+      {
+        "layer_index": 5,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Membrana de asfalto con dos capas"
+      },
+      {
+        "layer_index": 6,
+        "thickness_m": 0.0,
+        "material": "Cubiertas - Lámina de asfalto reforzado"
+      },
+      {
+        "layer_index": 7,
+        "thickness_m": 0.040000000000000001,
+        "material": "Mortero de hormigón"
+      },
+      {
+        "layer_index": 8,
+        "thickness_m": 0.10000000000000001,
+        "material": "Cubiertas - Arcilla seca expandida"
+      },
+      {
+        "layer_index": 9,
+        "thickness_m": 0.29999999999999999,
+        "conductivity": 3.4319999999999999,
+        "material": "Hormigón",
+        "r_value": 0.086999999999999994
+      }
+    ]
+  },
+  {
+    "Name": "Cubierta - por defecto - 30 cm",
+    "total_thickness_m": 0.29999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.29999999999999999,
+        "material": "Cubierta por defecto"
+      }
+    ]
+  }
+]

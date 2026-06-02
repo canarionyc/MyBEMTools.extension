@@ -4,7 +4,22 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "name": "Python Debugger: Remote Attach", 
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678 // Rhino
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "${workspaceFolder}"
+                }
+            ]
+        }
+         ,
         {
             "name": "PowerShell: Launch Current File",
             "type": "PowerShell",
@@ -18,6 +33,6 @@
             "request": "launch",
             "command": "echo Starting task...",
             "preLaunchTask": "Run batch file"
-        }
+        } 
     ]
 }

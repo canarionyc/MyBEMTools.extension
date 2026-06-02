@@ -10,6 +10,7 @@
     <content url="file://$MODULE_DIR$/../../repos/pyRevit-Master/pyrevitlib/pyrevit" />
     <orderEntry type="jdk" jdkName="Python 3.12 (MyBEMTools.extension)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="duckdb-testing" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

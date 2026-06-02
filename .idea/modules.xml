@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MyBEMTools.extension.iml" filepath="$PROJECT_DIR$/.idea/MyBEMTools.extension.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../duckdb-testing/.idea/duckdb-testing.iml" filepath="$PROJECT_DIR$/../duckdb-testing/.idea/duckdb-testing.iml" />
     </modules>
   </component>
 </project>

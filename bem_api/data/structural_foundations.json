@@ -1,0 +1,13 @@
+[
+  {
+    "Name": "Losa de cimentación 1",
+    "total_thickness_m": 0.29999999999999999,
+    "layers": [
+      {
+        "layer_index": 1,
+        "thickness_m": 0.29999999999999999,
+        "material": "No Material"
+      }
+    ]
+  }
+]
