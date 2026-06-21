@@ -1,6 +1,7 @@
 title: "BEM"
 layout:
   - Setup
+  - Import
   - Model
   - Geometry
   - Materials
@@ -9,3 +10,7 @@ layout:
   - Tools
   - NewTools
   - HULC
+  - BuildCabana
+  - Databases
+  - Generators
+  - Tests
